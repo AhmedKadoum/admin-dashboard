@@ -1,0 +1,126 @@
+{
+  "users": [
+    { "id": 1, "username": "admin", "password": "1234", "role": "Admin", "name": "Admin User","profilePictureUrl": "https://example.com/profile/admin.jpg" },
+    { "id": 2, "username": "readonly", "password": "4321", "role": "Readonly", "name": "Readonly User","profilePictureUrl":"https://example.com/profile/admin.jpg" }
+  ],
+  "categories": [
+      {
+        "id": 1,
+        "name": "Antibiotics",
+        "medications": [101, 102]
+      },
+      {
+        "id": 2,
+        "name": "Analgesics",
+        "medications": [103,104]
+      },
+      {
+        "id": 3,
+        "name": "Antipyretics",
+        "medications": []
+      }
+  ],
+  "medications": [
+  {
+    "id": "1",
+    "name": "Paracetamol",
+    "image": "assets/images/medications/paracetamol.png",
+    "barCode": "1234567890123"
+  },
+  {
+    "id": "2",
+    "name": "Amoxicillin",
+    "image": "assets/images/medications/amoxicillin.png",
+    "barCode": "2234567890123"
+  },
+  {
+    "id": "3",
+    "name": "Ibuprofen",
+    "image": "assets/images/medications/ibuprofen.png",
+    "barCode": "3234567890123"
+  },
+  {
+    "id": "4",
+    "name": "Cough Syrup",
+    "image": "assets/images/medications/cough-syrup.png",
+    "barCode": "4234567890123"
+  }
+],
+"patients": [
+  {
+    "id": "P001",
+    "Name": "Ahmed Ali",
+    "image": "assets/images/patients/ahmed.png",
+    "themeColor": "#4CAF50",
+    "connectedUserNumber": 2,
+    "dateOfBirth": "1990-05-12T00:00:00Z",
+    "gender": "Male",
+    "currentMedications": [
+      {
+        "medicationId": "1",
+        "medicationName": "Paracetamol",
+        "medicationCategory": "Pain Relief",
+        "dosage": "500mg",
+        "quantity": 20,
+        "startDate": "2025-08-01T00:00:00Z",
+        "endDate": "2025-08-10T00:00:00Z",
+        "frequency": "2 times/day",
+        "status": "token",
+        "notes": "Take after meals"
+      },
+      {
+        "medicationId": "3",
+        "medicationName": "Ibuprofen",
+        "medicationCategory": "Anti-inflammatory",
+        "dosage": "200mg",
+        "quantity": 15,
+        "startDate": "2025-08-05T00:00:00Z",
+        "endDate": "2025-08-15T00:00:00Z",
+        "frequency": "1 time/day",
+        "status": "missed"
+      }
+    ],
+    "currentConsultations": [
+      "General Checkup - 2025-07-20",
+      "Follow-up - 2025-08-02"
+    ]
+  },
+  {
+    "id": "P002",
+    "Name": "Sara Mohammed",
+    "image": "assets/images/patients/sara.png",
+    "themeColor": "#FF9800",
+    "connectedUserNumber": 1,
+    "dateOfBirth": "1985-09-22T00:00:00Z",
+    "gender": "Female",
+    "currentMedications": [
+      {
+        "medicationId": "2",
+        "medicationName": "Amoxicillin",
+        "medicationCategory": "Antibiotic",
+        "dosage": "250mg",
+        "quantity": 10,
+        "startDate": "2025-08-01T00:00:00Z",
+        "endDate": "2025-08-07T00:00:00Z",
+        "frequency": "3 times/day",
+        "status": "token"
+      }
+    ],
+    "currentConsultations": [
+      "ENT Consultation - 2025-07-18",
+      "Lab Tests Review - 2025-08-05"
+    ]
+  },
+  {
+    "id": "P003",
+    "Name": "John Smith",
+    "themeColor": "#2196F3",
+    "dateOfBirth": "2000-01-15T00:00:00Z",
+    "gender": "Other",
+    "currentMedications": [],
+    "currentConsultations": [
+      "Psychology Session - 2025-08-10"
+    ]
+  }
+]
+}
