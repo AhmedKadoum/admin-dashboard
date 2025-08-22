@@ -1,8 +1,18 @@
-import { CanActivateFn } from '@angular/router';
+// import { inject } from '@angular/core';
+// import { CanActivateFn, Router } from '@angular/router';
+// import { Store } from '@ngrx/store';
+// import { map, take } from 'rxjs';
 
-export const authGuard: CanActivateFn = () => {
-  // const store=inject(Store);
-  // const router=inject(Router);
+// export const authGuard: CanActivateFn = () => {
+//   const store = inject(Store);
+//   const router = inject(Router);
 
-  return true; // or implement your logic and return true/false/UrlTree
-};
+//   return store.select('auth').pipe(
+//     take(1), // automatically complete the observable
+//     map(auth => {
+//       if (auth.user) return true;
+//       router.navigate(['/login']);
+//       return false;
+//     })
+//   );
+// };

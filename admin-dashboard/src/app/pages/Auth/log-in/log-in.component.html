@@ -1,4 +1,4 @@
-<div class="flex flex-col md:flex-row">
+<!-- <div class="flex flex-col md:flex-row">
     <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-3 py-5">
         <div class="flex flex-col gap-2">
             <label for="username">Username</label>
@@ -19,4 +19,37 @@
     <div class="w-full md:w-5/12 flex items-center justify-center py-5">
         <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
     </div>
+</div> -->
+<!-- ///////////////////////////// -->
+ <div class="flex justify-center items-center min-h-screen bg-gray-100">
+  <div class="w-full max-w-sm p-6 bg-white rounded shadow-md">
+    <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Username</label>
+        <input pInputText type="text" formControlName="username"
+               class="w-full p-2 border rounded focus:ring focus:ring-indigo-200" />
+      </div>
+
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Password</label>
+        <input pPassword formControlName="password"
+               class="w-full p-2 border rounded focus:ring focus:ring-indigo-200" />
+      </div>
+
+
+      @if ( error$ | async ; as error) {
+        <div class="text-red-500 text-sm">
+          {{ error }}
+        </div>
+      }
+
+            <button pButton type="submit" label="Login"
+              [disabled]="loginForm.invalid || (loading$ | async)"
+              class="w-full !bg-indigo-600 !border-none !text-white">submit</button>
+    </form>
+  </div>
 </div>

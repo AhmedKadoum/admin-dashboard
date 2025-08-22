@@ -1,0 +1,49 @@
+<p>test works!</p>
+<button (click)="increment()">Increment</button>
+
+<div style="color: brown;">Current Count: {{ test$ | async }}</div>
+
+<button (click)="decrement()">Decrement</button>
+
+<button (click)="reset()">Reset Counter</button>
+<button (click)="viewuser()">view</button>
+<!-- test -->
+<p>for test api req</p>
+ <div class="p-4">
+      <div header="User Data Test" styleClass="shadow-2">
+        <div class="flex flex-col gap-4">
+          <button
+            label="Fetch User Data"
+            (click)="fetchUser()"
+            [disabled]="loading">fetch data
+          </button>
+
+          <p *ngIf="loading">spinning icon</p>
+
+          <p
+            *ngIf="error"
+            severity="error"
+            >{{error}}
+          </p>
+
+          <div *ngIf="user" class="p-4 bg-surface-50 rounded-border">
+            <h3 class="text-xl font-semibold mb-2">User Details:</h3>
+            <p><strong>ID:</strong> {{ user.id }}</p>
+            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Role:</strong> {{ user.role }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 p-4 bg-blue-50 border-round">
+        <h4 class="font-bold mb-2">Instructions:</h4>
+        <ol class="list-decimal list-inside text-sm">
+          <li>Open Browser DevTools (F12)</li>
+          <li>Go to Network tab</li>
+          <li>Click "Fetch User Data" button</li>
+          <li>You should see the API request in the network tab</li>
+          <li>Check console for logs and errors</li>
+        </ol>
+      </div>
+    </div>

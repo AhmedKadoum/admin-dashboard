@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from '../guards/auth.guard';
+// import { authGuard } from '../guards/auth.guard';
 
 
 export const routes: Routes = [
@@ -10,7 +10,7 @@ export const routes: Routes = [
   },
   {
     path:'',
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     loadComponent: () => import('./layout/layout.component').then(m => m.LayoutComponent),
     children: [
       {
@@ -18,6 +18,12 @@ export const routes: Routes = [
         title: 'Dashboard',
         loadComponent: () => import('./pages/dash-board/dash-board.component').then(m => m.DashBoardComponent)
       },
+      {
+        path:'login',
+        title: 'Login',
+        loadComponent: () => import('./pages/Auth/log-in/log-in.component').then(m => m.LogInComponent)
+      }
+      ,
       {
         path:'patients',
         title: 'Patients',
@@ -47,6 +53,17 @@ export const routes: Routes = [
         path:'help-page',
         title: 'Help Page',
         loadComponent: () => import('./pages/help-page/help-page.component').then(m => m.HelpPageComponent)
+      },
+      {
+        path:'test',
+        title: 'Test',
+        loadComponent: () => import('./pages/test/test.component').then(m => m.TestComponent)
+      },
+      {
+        path:'users',
+        title:'Users',
+        loadComponent: () => import('./pages/users-list/users-list.component').then(m => m.UserListComponent)
+
       },
       {
         path: '',
