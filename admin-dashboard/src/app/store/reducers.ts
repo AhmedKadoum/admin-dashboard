@@ -1,10 +1,12 @@
-import {ActionReducerMap, MetaReducer} from '@ngrx/store';
+import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 
-import {State} from './state';
-import * as auth from '../store/slices/auth/auth.store';
-import * as test from './slices/test/test.store';
-import * as user from './slices/users/users.store';
+import * as auth from './slices/auth/auth.store';
+import * as category from './slices/categories/category.store';
+import * as medication from './slices/medications/medication.store';
+// import * as test from './slices/test/test.store';
+// import * as user from './slices/users/users.store';
 import { userReducer } from './slices/users/users.store';
+import { categoriesFeature } from './slices/categories/category.store';
 
 /**
  * Every reducer module's default export is the reducer function itself. In
@@ -13,22 +15,12 @@ import { userReducer } from './slices/users/users.store';
  * notation packages up all the exports into a single object.
  */
 
-//  * Our state is composed of a map of action reducer functions.
-//  * These reducer functions are called with each dispatched action
-//  * and the current or initial state and return a new immutable state.
-//  */
 export const rootReducers: ActionReducerMap<any> = {
   [auth.featureKey]: auth.authReducer,
-  test:test.testReducer,
-  users:user.userReducer
-
-
-
+  // test:test.testReducer,
+  // users:user.userReducer,
+  [category.featureKey]: category.reducer,
+  [medication.featureKey]:medication.reducer,
 };
 
-/**
- * By default, @ngrx/store uses combineReducers with the reducer map to compose
- * the root meta-reducer. To add more meta-reducers, provide an array of meta-reducers
- * that will be composed to form the root meta-reducer.
- */
-// export const metaReducers: MetaReducer<State>[] = [];
+// export const metaReducers: MetaReducer<any>[] = [];

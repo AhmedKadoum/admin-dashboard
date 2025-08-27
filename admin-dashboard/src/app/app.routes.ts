@@ -19,12 +19,6 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/dash-board/dash-board.component').then(m => m.DashBoardComponent)
       },
       {
-        path:'login',
-        title: 'Login',
-        loadComponent: () => import('./pages/Auth/log-in/log-in.component').then(m => m.LogInComponent)
-      }
-      ,
-      {
         path:'patients',
         title: 'Patients',
         loadComponent: () => import('./pages/patients/patients.component').then(m => m.PatientsComponent)

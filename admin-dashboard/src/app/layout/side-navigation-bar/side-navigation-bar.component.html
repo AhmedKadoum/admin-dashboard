@@ -1,11 +1,11 @@
-
+<!--
 <p-drawer #drawerRef [(visible)]="visible">
-    <ng-template #headless>
+    <ng-template pTemplate="headless" let-closeCallback>
         <div class="flex flex-col h-full">
             <div class="flex items-center justify-between px-6 pt-4 shrink-0">
                 <span class="inline-flex items-center gap-2">
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
-                        <path d="..." />
+                        <path d="assets/column-chart-svgrepo-com.svg" />
                     </svg>
                     <span class="font-semibold text-2xl text-primary">Your Logo</span>
                 </span>
@@ -28,15 +28,15 @@
                                 </a>
                             </li>
                             <li>
-                                <a pRipple routerLink="categories" class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                <a pRipple routerLink="/categories" class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-users mr-2"></i>
-                                    <span class="font-medium">Modifications</span>
+                                    <span class="font-medium">Categories</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple routerLink="medications" class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                <a pRipple routerLink="/medications" class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-comments mr-2"></i>
-                                    <span class="font-medium">Categories</span>
+                                    <span class="font-medium">Medications</span>
                                 </a>
                             </li>
                             <li>
@@ -69,5 +69,42 @@
         </div>
     </ng-template>
 </p-drawer>
-<p-button (click)="visible = true" icon="pi pi-bars" />
+<p-button (click)="visible = true" icon="pi pi-bars" /> -->
+<!-- test -->
+<p-drawer #drawerRef [(visible)]="visible" [style]="{width: '300px'}" [modal]="true" [showCloseIcon]="false">
+    <ng-template pTemplate="headless" let-closeCallback>
+        <div class="p-d-flex p-flex-column" style="height: 100%;">
+
+
+            <div class="p-d-flex p-ai-center p-jc-between p-px-3 p-pt-3 p-pb-2" style="border-bottom: 1px solid var(--surface-border)">
+                <span class="p-d-flex p-ai-center p-gap-2">
+                    <img src="assets/column-chart-svgrepo-com.svg" alt="Logo" width="31" height="33">
+                    <span class="p-text-bold" style="font-size: 1.5rem; color: var(--primary-color)">Your Logo</span>
+                </span>
+                <p-button type="button" icon="pi pi-times" (click)="closeCallback($event)" class="p-button-rounded p-button-outlined"></p-button>
+            </div>
+
+
+            <div class="p-flex-grow-1 p-overflow-y-auto p-px-2 p-pt-2">
+                <ul class="p-list p-p-0 p-m-0">
+                    <li *ngFor="let item of menuItems">
+                        <a pRipple [routerLink]="item.link" class="p-d-flex p-ai-center p-p-2 p-mb-1 p-rounded hover:p-bg-primary-100" style="color: var(--text-color)">
+                            <i [class]="'pi ' + item.icon + ' p-mr-2'"></i>
+                            <span class="p-text-bold">{{ item.label }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="p-px-3 p-pb-3" style="border-top: 1px solid var(--surface-border);">
+                <a pRipple class="p-d-flex p-ai-center p-gap-2 p-p-2 p-rounded hover:p-bg-primary-100">
+                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle"></p-avatar>
+                    <span class="p-text-bold">Amy Elsner</span>
+                </a>
+            </div>
+        </div>
+    </ng-template>
+</p-drawer>
+<p-button (click)="visible = true" icon="pi pi-bars"></p-button>
 
