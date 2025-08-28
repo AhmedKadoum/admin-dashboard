@@ -1,20 +1,4 @@
 @import "primeicons/primeicons.css";
-/* @import "tailwindcss";
-@plugin "tailwindcss-primeui"; */
-/* For all card, panel, dialog, overlay components */
-.p-card,
-.p-panel,
-.p-dialog,
-.p-drawer,
-.p-table,
-.p-overlaypanel,
-.p-sidebar {
-    background-color: #ffffff; /* white background */
-    color: #333333; /* dark text */
-}
-
-/* Optional: add subtle shadow */
-.p-card,
-.p-panel {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
+@import "tailwindcss";
+@tailwind utilities;
+@plugin "tailwindcss-primeui";

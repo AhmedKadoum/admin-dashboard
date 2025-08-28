@@ -27,25 +27,25 @@ import { CommonModule } from '@angular/common';
 export class SideNavigationBarComponent {
   visible: boolean = false;
 
-  // items = [
-  //   { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: '/dashboard' },
-  //   { label: 'Patients', icon: 'pi pi-fw pi-users', routerLink: '/patients' },
-  //   { label: 'Medications', icon: 'pi pi-fw pi-medkit', routerLink: '/medications' },
-  //   { label: 'Categories', icon: 'pi pi-fw pi-tags', routerLink: '/categories' },
-  //   { label: 'Settings', icon: 'pi pi-fw pi-cog', routerLink: '/settings' },
-  //   { label: 'Support', icon: 'pi pi-fw pi-info-circle', routerLink: '/support' },
-  //   { label: 'Help Page', icon: 'pi pi-fw pi-question-circle', routerLink: '/help-page' }
-  // ];
+  items = [
+    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: '/dashboard' },
+    { label: 'Patients', icon: 'pi pi-fw pi-users', routerLink: '/patients' },
+    { label: 'Medications', icon: 'pi pi-fw pi-medit', routerLink: '/medications' },
+    { label: 'Categories', icon: 'pi pi-fw pi-tags', routerLink: '/categories' },
+    { label: 'Settings', icon: 'pi pi-fw pi-cog', routerLink: '/settings' },
+    { label: 'Support', icon: 'pi pi-fw pi-info-circle', routerLink: '/support' },
+    { label: 'Help Page', icon: 'pi pi-fw pi-question-circle', routerLink: '/help-page' }
+  ];
   // test start
-  menuItems = [
-    { label: 'Dashboard', link: '/dashboard', icon: 'pi-home' },
-    { label: 'Patients', link: '/patients', icon: 'pi-bookmark' },
-    { label: 'Categories', link: '/categories', icon: 'pi-users' },
-    { label: 'Medications', link: '/medications', icon: 'pi-comments' },
-    { label: 'Settings', link: '/settings', icon: 'pi-calendar' },
-    { label: 'Support', link: '/support', icon: 'pi-cog' },
-    { label: 'Help', link: '/help-page', icon: 'pi-question' }
-];
+//   menuItems = [
+//     { label: 'Dashboard', link: '/dashboard', icon: 'pi-home' },
+//     { label: 'Patients', link: '/patients', icon: 'pi-bookmark' },
+//     { label: 'Categories', link: '/categories', icon: 'pi-users' },
+//     { label: 'Medications', link: '/medications', icon: 'pi-comments' },
+//     { label: 'Settings', link: '/settings', icon: 'pi-calendar' },
+//     { label: 'Support', link: '/support', icon: 'pi-cog' },
+//     { label: 'Help', link: '/help-page', icon: 'pi-question' }
+// ];
   // test end
   // closeCallback: () => void = () => {
   //   this.visible = false;
