@@ -1,1 +1,159 @@
-<p>patients works!</p>
+
+<div class="card">
+  <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+  <h2>Patients</h2>
+  <div>{{loading()}}</div>
+
+  @if (loading()) {
+  <p>⏳ Loading...</p>
+  } @if (error()) {
+  <p style="color: red">⚠️ {{ error() }}</p>
+  }
+
+  <!-- <p-table [value]="Patients()?? []" [tableStyle]="{ 'min-width': '30rem' }"> -->
+  <p-table [value]="localPatients || []"
+           [paginator]="true"
+           [rows]="8"
+           [rowsPerPageOptions]="[5,10,20]"
+           [tableStyle]="{ 'min-width': '30rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>ThemeColor</th>
+        <th>ConnectedUserNumber</th>
+        <th>DateOfBirth</th>
+        <th>Gender</th>
+        <th style="width: 150px">Actions</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-Pat>
+      <tr>
+        <td>{{ Pat.id }}</td>
+        <td>{{ Pat.Name}}</td>
+        <td><img src="{{ Pat.image }}" alt=" not found"></td>
+        <td>{{Pat.themeColor}}</td>
+        <td>{{Pat.connectedUserNumber}}</td>
+        <td>{{Pat.dateOfBirth | date:'dd/mm/yy'}}</td>
+        <td>{{Pat.gender}}</td>
+        <td>
+          <button
+            pButton
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-text p-button-sm"
+            (click)="editPatient(Pat)"
+          ></button>
+
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger p-button-text p-button-sm"
+            (click)="deletePatient(Pat.id)"
+          ></button>
+          <button
+            pButton
+            icon="pi pi-user"
+            class="p-button-rounded p-button-info p-button-text p-button-sm"
+            (click)="viewProfile(Pat.id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <div class="mt-3">
+    <button
+      pButton
+      label="➕ Add Patient"
+      icon="pi pi-plus"
+      class="p-button-success"
+      (click)="addPatient()"
+    ></button>
+  </div>
+</div>
+<!-- patient details section -->
+
+@if (dialogVisible) {
+
+  <!-- <app-profile-details></app-profile-details> -->
+   <p-dialog
+    header="Patient Details"
+    [resizable]="false"
+    [modal]="true"
+    [maximizable]="true"
+    appendTo="body"
+    [(visible)]="dialogVisible"
+    [style]="{ width: '75vw' }"
+    [contentStyle]="{ height: '400px' }"
+>
+@if (value==="medication") {
+
+  <p-table [value]="localPatients||[]" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template #header>
+          <tr>
+              <th>ID</th>
+              <th>Medication</th>
+              <th>Category</th>
+              <th>Dosage</th>
+              <th>Quantity</th>
+              <th>StartDate</th>
+              <th>EndDate</th>
+              <th>Frequency</th>
+              <th>Status</th>
+
+          </tr>
+      </ng-template>
+      <ng-template #body let-aaa>
+          <tr>
+              <td>{{aaa.currentPatients[0].PatientId}}</td>
+
+              <td>{{aaa.currentPatients[0].MedicationName}}</td>
+              <td>{{aaa.currentPatients[0].PatientCategory}}</td>
+              <td>{{aaa.currentPatients[0].dosage}}</td>
+              <td>{{aaa.currentPatients[0].quantity }}</td>
+              <td>{{aaa.currentPatients[0].startDate|date:'dd/mm/yy'}}</td>
+              <td>{{aaa.currentPatients[0].endDate|date:'dd/mm/yy'}}</td>
+              <td>{{aaa.currentPatients[0].frequency }}</td>
+              <td>{{aaa.currentPatients[0].status}}</td>
+
+          </tr>
+      </ng-template>
+  </p-table>
+}
+@if (value==="consultation") {
+
+  <p-table [value]="localPatients||[]" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template #header>
+          <tr>
+              <th>ID</th>
+              <th>ConsultationName</th>
+              <th>StartDate</th>
+              <th>EndDate</th>
+          </tr>
+      </ng-template>
+      <ng-template #body let-aaa>
+          <tr>
+              <td>{{aaa.currentConsultations[0].id}}</td>
+              <td>{{aaa.currentConsultations[0].name}}</td>
+              <td>{{aaa.currentConsultations[0].StartDate|date:'dd/mm/yy'}}</td>
+              <td>{{aaa.currentConsultations[0].EndDate|date:'dd/mm/yy'}}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+}
+    <ng-template #footer>
+      <p-selectbutton
+      [options]="stateOptions"
+      [(ngModel)]="value"
+      optionLabel="label"
+      optionValue="value"
+      aria-labelledby="basic"
+      />
+      <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
+    </ng-template>
+</p-dialog>
+}
+
+
