@@ -9,10 +9,20 @@ import { CommonModule } from '@angular/common';
 import { ProfileDetailsComponent } from "./profile-details/profile-details.component";
 import { DialogModule } from 'primeng/dialog';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { actions } from '../../store/slices/patients/patient.store';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+
+
 @Component({
   selector: 'app-Patients',
-  imports: [CommonModule,FormsModule,SelectButtonModule,TableModule,DialogModule, ButtonModule, BreadcrumbModule, ProfileDetailsComponent],
+  imports: [CommonModule,FormsModule,SelectButtonModule,ReactiveFormsModule,
+    TableModule,DialogModule, ButtonModule, BreadcrumbModule,
+     ProfileDetailsComponent,IconFieldModule,InputIconModule],
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.css',
   standalone:true,
@@ -20,6 +30,9 @@ import { FormsModule } from '@angular/forms';
 export class PatientsComponent implements OnInit {
 
    private PatientServices: PatientService = inject(PatientService);
+  //   fb = inject(FormBuilder);
+  // searchForm!: FormGroup;
+
 
   // signal
   loading: Signal<boolean> = this.PatientServices.loading$;
@@ -29,6 +42,7 @@ export class PatientsComponent implements OnInit {
   home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
   items: MenuItem[] = [{ label: 'Dashboard', routerLink: '/dashboard' }, { label: 'Patients' }];
 dialogVisible: boolean=false;
+EditDialogVisible:boolean=false
 // medication:boolean=true;
 // consultation:boolean=false;
 stateOptions = [
@@ -36,10 +50,34 @@ stateOptions = [
   { label: 'Consultation', value: 'consultation' }
 ];
 value:string="medication";
+value1: any;
   //
+   fb = inject(FormBuilder);
+  store = inject(Store);
+  searchForm!: FormGroup;
+  patientForm!: FormGroup;
   ngOnInit(): void {
       this.PatientServices.initializePatients()
       console.log('Patient from component')
+      this.searchForm=this.fb.group({
+        search:['']
+      })
+       this.searchForm.get('search')?.valueChanges
+      .pipe(
+        debounceTime(400),  // wait user typing
+        distinctUntilChanged()
+      )
+      .subscribe((value: string) => {
+        this.store.dispatch(actions.searchPatients({ query: value }));
+      });
+        // build empty patient form
+  this.patientForm = this.fb.group({
+    id: [0],
+    Name: [''],
+    themeColor: ['#4CAF50'],
+    dateOfBirth: [new Date()],
+    gender: ['Male']
+  });
   }
   constructor() {
     effect(() => {
@@ -48,13 +86,40 @@ value:string="medication";
   }
   // CRUD actions
   addPatient() {
-    this.PatientServices.addPatient('new Patient');
+    // this.PatientServices.addPatient('new Patient');
+  this.store.dispatch(actions.selectPatient({ patient: null }));
+  this.patientForm.reset({
+    id: 0,
+    Name: '',
+    themeColor: '#4CAF50',
+    dateOfBirth: new Date(),
+    gender: 'Male'
+  });
+  this.EditDialogVisible = true;
+  console.log(this.patientForm.value)
+}
+// Save changes
+savePatient() {
+  const patient: Patient = this.patientForm.value;
+
+  if (patient.id && patient.id !== 0) {
+    this.store.dispatch(actions.updatePatient({ PatientId: patient.id, name: patient.Name }));
+  } else {
+    this.store.dispatch(actions.createPatient({ name: patient.Name }));
   }
 
+  this.EditDialogVisible = false;
+  console.log(patient)
+}
+
   editPatient(Patient: Patient) {
-    const updated = { ...Patient, name: Patient.Name + ' (Updated)', id: 5 };
-    this.PatientServices.updatePatient(updated.id, updated.name);
+    // const updated = { ...Patient, name: Patient.Name + ' (Updated)', id: 5 };
+    // this.PatientServices.updatePatient(updated.id, updated.name);
+    this.store.dispatch(actions.selectPatient({ patient:Patient }));
+  this.patientForm.patchValue(Patient);  // fill form
+  this.EditDialogVisible = true;
   }
+
 
   deletePatient(id: number) {
     this.PatientServices.deletePatient(id);
@@ -63,12 +128,17 @@ value:string="medication";
     // this.PatientServices.viewProfile(id);
     this.dialogVisible=true;
   }
+   onSearch(data: any) {
+    data=this.fb.control(this.searchForm)
+    this.PatientServices.onSearch(this.value)
+    console.log(data)
+  }
   // local data for test
 localPatients:Patient[]=[
   {
     id: 1,
-    Name: 'John Doe',
-    image: 'assets/images/patient1.png',
+    Name: 'ahmed kadoum',
+    image:'../../../assets/images/patients/profile-2 (1).webp',
     themeColor: '#4CAF50',
     connectedUserNumber: 2,
     dateOfBirth: new Date('1990-05-15'),
@@ -76,7 +146,7 @@ localPatients:Patient[]=[
     currentPatients: [
       {
         PatientId: 1,
-        PatientName: 'John Doe',
+        PatientName: 'mohamed mohamed',
         MedicationName:'paracetamol',
         PatientCategory: 'Cardiology',
         dosage: '10mg',
@@ -96,7 +166,7 @@ localPatients:Patient[]=[
   },
   {
     id: 2,
-    Name: 'Jane Smith',
+    Name: 'eman Ahmed',
     image: 'assets/images/patient2.png',
     themeColor: '#FF9800',
     connectedUserNumber: 1,
@@ -105,7 +175,7 @@ localPatients:Patient[]=[
     currentPatients: [
       {
         PatientId: 2,
-        PatientName: 'Jane Smith',
+        PatientName:'mahmoud kadoum',
         MedicationName: 'panadol',
         PatientCategory: 'Neurology',
         dosage: '5mg',

@@ -25,6 +25,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { AuthEffects } from './store/effects/auth.effects';
 import { CategoryEffects } from './store/effects/category.effect';
 import { MedicationEffects } from './store/effects/medication.effect';
+import { PatientEffects } from './store/effects/patient.effect';
 // import { metaReducers, rootReducers } from './store/reducers';
 
 export const appConfig: ApplicationConfig = {
@@ -60,7 +61,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     // provideStore({ auth:authReducer}, { metaReducers }),
     provideStore(rootReducers),
-    provideEffects([AuthEffects, CategoryEffects,MedicationEffects]),
+    provideEffects([AuthEffects, CategoryEffects,MedicationEffects,PatientEffects]),
     provideStoreDevtools({
       maxAge: 25,
       autoPause: true,

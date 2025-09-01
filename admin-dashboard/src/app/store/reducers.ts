@@ -3,10 +3,12 @@ import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import * as auth from './slices/auth/auth.store';
 import * as category from './slices/categories/category.store';
 import * as medication from './slices/medications/medication.store';
+import * as patient from './slices/patients/patient.store';
 // import * as test from './slices/test/test.store';
 // import * as user from './slices/users/users.store';
 import { userReducer } from './slices/users/users.store';
 import { categoriesFeature } from './slices/categories/category.store';
+import { PatientsFeature } from './slices/patients/patient.store';
 
 /**
  * Every reducer module's default export is the reducer function itself. In
@@ -21,6 +23,7 @@ export const rootReducers: ActionReducerMap<any> = {
   // users:user.userReducer,
   [category.featureKey]: category.reducer,
   [medication.featureKey]:medication.reducer,
+  [patient.featureKey]:patient.reducer,
 };
 
 // export const metaReducers: MetaReducer<any>[] = [];

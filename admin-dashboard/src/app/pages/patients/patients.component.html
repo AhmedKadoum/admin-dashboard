@@ -9,8 +9,20 @@
   } @if (error()) {
   <p style="color: red">⚠️ {{ error() }}</p>
   }
-
-  <!-- <p-table [value]="Patients()?? []" [tableStyle]="{ 'min-width': '30rem' }"> -->
+<div class=" flex justify-center items-center mb-8">
+  <form [formGroup]="searchForm" class="w-full md:w-1/3">
+    <div class="p-input-icon-left w-100">
+      <i class="pi pi-search" onchange="onSearch()"></i>
+      <input
+        pInputText
+        type="text"
+        placeholder="Search by name..."
+        formControlName="search"
+        class="w-90% mx-10 border p-3 bg-white rounded-lg shadow-md"
+      />
+    </div>
+  </form>
+</div>
   <p-table [value]="localPatients || []"
            [paginator]="true"
            [rows]="8"
@@ -76,8 +88,6 @@
 <!-- patient details section -->
 
 @if (dialogVisible) {
-
-  <!-- <app-profile-details></app-profile-details> -->
    <p-dialog
     header="Patient Details"
     [resizable]="false"
@@ -155,5 +165,41 @@
     </ng-template>
 </p-dialog>
 }
+<!--  -->
 
+
+<!-- Dialog for Add/Edit -->
+<p-dialog header="Patient Form" [(visible)]="EditDialogVisible" [modal]="true" [style]="{width: '400px'}">
+  <form [formGroup]="patientForm" (ngSubmit)="savePatient()">
+    <div class="p-fluid">
+      <div class="field">
+        <label for="Name">Name</label>
+        <input id="Name" type="text" pInputText formControlName="Name" />
+      </div>
+
+      <div class="field">
+        <label for="themeColor">Theme Color</label>
+        <input id="themeColor" type="color" formControlName="themeColor" />
+      </div>
+
+      <div class="field">
+        <label for="dateOfBirth">Date of Birth</label>
+        <input id="dateOfBirth" type="date" formControlName="dateOfBirth" />
+      </div>
+
+      <div class="field">
+        <label>Gender</label>
+        <p-selectButton
+          [options]="[{label: 'Male', value: 'Male'}, {label: 'Female', value: 'Female'}]"
+          formControlName="gender">
+        </p-selectButton>
+      </div>
+    </div>
+
+    <p-footer>
+      <button pButton label="Cancel" class="p-button-text" type="button" (click)="EditDialogVisible=false"></button>
+      <button pButton label="Save" class="p-button-primary" type="submit"></button>
+    </p-footer>
+  </form>
+</p-dialog>
 
