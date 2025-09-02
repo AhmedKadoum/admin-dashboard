@@ -31,6 +31,26 @@ export class PatientEffects {
       )
     )
   );
+  editPatients$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PatientActions.actions.updatePatient),
+      tap(() => console.log('🔄 update Patients effect triggered')),
+      mergeMap(() =>
+        this.apiPatientService.updatePatientsData().pipe(
+          map((response: Patient) =>
+            PatientActions.actions.updatePatientSuccess({Patient:response})
+          ),
+          catchError((error) =>
+            of(
+              PatientActions.actions.loadPatientsFailure({
+                error: error.message,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
   searchPatients$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PatientActions.actions.searchPatients),

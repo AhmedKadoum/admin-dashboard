@@ -2,7 +2,7 @@
 <div class="card">
   <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
   <h2>Patients</h2>
-  <div>{{loading()}}</div>
+
 
   @if (loading()) {
   <p>⏳ Loading...</p>
@@ -45,7 +45,7 @@
       <tr>
         <td>{{ Pat.id }}</td>
         <td>{{ Pat.Name}}</td>
-        <td><img src="{{ Pat.image }}" alt=" not found"></td>
+        <td><img src="{{ Pat.image }}" alt=" patient" class="size-12"></td>
         <td>{{Pat.themeColor}}</td>
         <td>{{Pat.connectedUserNumber}}</td>
         <td>{{Pat.dateOfBirth | date:'dd/mm/yy'}}</td>
@@ -117,16 +117,15 @@
       </ng-template>
       <ng-template #body let-aaa>
           <tr>
-              <td>{{aaa.currentPatients[0].PatientId}}</td>
-
-              <td>{{aaa.currentPatients[0].MedicationName}}</td>
-              <td>{{aaa.currentPatients[0].PatientCategory}}</td>
-              <td>{{aaa.currentPatients[0].dosage}}</td>
-              <td>{{aaa.currentPatients[0].quantity }}</td>
-              <td>{{aaa.currentPatients[0].startDate|date:'dd/mm/yy'}}</td>
-              <td>{{aaa.currentPatients[0].endDate|date:'dd/mm/yy'}}</td>
-              <td>{{aaa.currentPatients[0].frequency }}</td>
-              <td>{{aaa.currentPatients[0].status}}</td>
+              <td>{{selectedProfile?.currentPatients?.[0]?.PatientId}}</td>
+              <td>{{selectedProfile?.currentPatients?.[0]?.MedicationName}}</td>
+              <td>{{ selectedProfile?.currentPatients?.[0]?.PatientCategory }}</td>
+              <td>{{selectedProfile?.currentPatients?.[0]?.dosage}}</td>
+              <td>{{selectedProfile?.currentPatients?.[0]?.quantity }}</td>
+              <td>{{selectedProfile?.currentPatients?.[0]?.startDate|date:'dd/mm/yy'}}</td>
+              <td>{{selectedProfile?.currentPatients?.[0]?.endDate|date:'dd/mm/yy'}}</td>
+              <td>{{selectedProfile?.currentPatients?.[0]?.frequency }}</td>
+              <td>{{selectedProfile?.currentPatients?.[0]?.status}}</td>
 
           </tr>
       </ng-template>
@@ -170,29 +169,37 @@
 
 <!-- Dialog for Add/Edit -->
 <p-dialog header="Patient Form" [(visible)]="EditDialogVisible" [modal]="true" [style]="{width: '400px'}">
-  <form [formGroup]="patientForm" (ngSubmit)="savePatient()">
-    <div class="p-fluid">
+  <form [formGroup]="patientForm" (ngSubmit)="savePatient()" class="space-y-4">
+    <div class="p-fluid space-y-4">
+
+      <!-- Name -->
       <div class="field">
-        <label for="Name">Name</label>
-        <input id="Name" type="text" pInputText formControlName="Name" />
+        <label for="Name" class="font-semibold text-gray-700">Name</label>
+        <input id="Name" type="text" pInputText formControlName="Name"
+          class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500" />
       </div>
 
+      <!-- Theme Color -->
       <div class="field">
-        <label for="themeColor">Theme Color</label>
-        <input id="themeColor" type="color" formControlName="themeColor" />
+        <label for="themeColor" class="font-semibold text-gray-700">Theme Color</label>
+        <input id="themeColor" type="color" formControlName="themeColor"
+          class="h-10 w-16 cursor-pointer rounded-md shadow" />
       </div>
 
+      <!-- Date of Birth -->
       <div class="field">
-        <label for="dateOfBirth">Date of Birth</label>
-        <input id="dateOfBirth" type="date" formControlName="dateOfBirth" />
+        <label for="dateOfBirth" class="font-semibold text-gray-700">Date of Birth</label>
+        <input id="dateOfBirth" type="date" formControlName="dateOfBirth"
+          class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500" />
       </div>
 
+      <!-- Gender -->
       <div class="field">
-        <label>Gender</label>
+        <label class="font-semibold text-gray-700">Gender</label>
         <p-selectButton
           [options]="[{label: 'Male', value: 'Male'}, {label: 'Female', value: 'Female'}]"
-          formControlName="gender">
-        </p-selectButton>
+          formControlName="gender"
+          class="w-full" />
       </div>
     </div>
 

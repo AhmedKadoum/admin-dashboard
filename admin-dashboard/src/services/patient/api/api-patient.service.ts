@@ -23,6 +23,15 @@ export class ApiPatientService {
         })
       );
     }
+    updatePatientsData(): Observable<Patient> {
+      // Replace '/api/user' with the actual endpoint for fetching user data
+      return this.http.get<Patient>('http://localhost:3000/Patients').pipe(
+        map((response: Patient) => {
+          console.log('response is ',response)
+          return response;
+        })
+      );
+    }
     searchPatients(query:string): Observable<Patient[]> {
        console.log('API called with query:', query);
       return this.http.get<Patient[]>('http://localhost:3000/Patients').pipe(

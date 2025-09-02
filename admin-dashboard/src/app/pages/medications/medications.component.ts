@@ -54,25 +54,25 @@ export class MedicationsComponent implements OnInit {
   {
     "id": "1",
     "name": "Paracetamol",
-    "image": "assets/images/medications/paracetamol.jpg",
+    "image": "assets/images/med/1.jpg",
     "barCode": "1234567890123"
   },
   {
     "id": "2",
     "name": "Amoxicillin",
-    "image": "assets/images/medications/amoxicillin.png",
+    "image": "assets/images/med/2.jpg",
     "barCode": "2234567890123"
   },
   {
     "id": "3",
     "name": "Ibuprofen",
-    "image": "assets/images/medications/ibuprofen.png",
+    "image": "assets/images/med/3.jpg",
     "barCode": "3234567890123"
   },
   {
     "id": "4",
     "name": "Cough Syrup",
-    "image": "assets/images/medications/cough-syrup.png",
+    "image": "assets/images/med/4.jpg",
     "barCode": "4234567890123"
   }
 ]

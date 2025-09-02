@@ -46,8 +46,8 @@ export class PatientService {
       this.store.dispatch(actions.createPatient({ name }));
     }
 
-    updatePatient(PatientId: number, name: string) {
-      this.store.dispatch(actions.updatePatient({ PatientId, name }));
+    updatePatient(Patient:Patient) {
+      this.store.dispatch(actions.updatePatient({ Patient:Patient}));
     }
 
     deletePatient(PatientId: number) {
@@ -55,6 +55,7 @@ export class PatientService {
     }
     viewProfile(PatientId: number) {
       this.store.dispatch(actions.loadProfiles({PatientId}))
+      console.log('load profile from service id:',PatientId)
     }
     onSearch(query: string) {
       this.store.dispatch(actions.searchPatients({query}))

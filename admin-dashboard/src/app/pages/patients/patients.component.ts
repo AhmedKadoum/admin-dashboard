@@ -41,17 +41,19 @@ export class PatientsComponent implements OnInit {
   // breadCrumb
   home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
   items: MenuItem[] = [{ label: 'Dashboard', routerLink: '/dashboard' }, { label: 'Patients' }];
-dialogVisible: boolean=false;
+// default dialogue
+  dialogVisible: boolean=false;
 EditDialogVisible:boolean=false
-// medication:boolean=true;
-// consultation:boolean=false;
+// medication& consultation state
 stateOptions = [
   { label: 'Medication', value: 'medication' },
   { label: 'Consultation', value: 'consultation' }
 ];
 value:string="medication";
+// /////////////////////
 value1: any;
   //
+  // form
    fb = inject(FormBuilder);
   store = inject(Store);
   searchForm!: FormGroup;
@@ -79,6 +81,7 @@ value1: any;
     gender: ['Male']
   });
   }
+  //
   constructor() {
     effect(() => {
       console.log(this.Patients())
@@ -86,7 +89,6 @@ value1: any;
   }
   // CRUD actions
   addPatient() {
-    // this.PatientServices.addPatient('new Patient');
   this.store.dispatch(actions.selectPatient({ patient: null }));
   this.patientForm.reset({
     id: 0,
@@ -103,7 +105,7 @@ savePatient() {
   const patient: Patient = this.patientForm.value;
 
   if (patient.id && patient.id !== 0) {
-    this.store.dispatch(actions.updatePatient({ PatientId: patient.id, name: patient.Name }));
+    this.store.dispatch(actions.updatePatient({ Patient:patient }));
   } else {
     this.store.dispatch(actions.createPatient({ name: patient.Name }));
   }
@@ -113,9 +115,10 @@ savePatient() {
 }
 
   editPatient(Patient: Patient) {
+    console.log('patient is ',Patient);
     // const updated = { ...Patient, name: Patient.Name + ' (Updated)', id: 5 };
-    // this.PatientServices.updatePatient(updated.id, updated.name);
-    this.store.dispatch(actions.selectPatient({ patient:Patient }));
+    this.PatientServices.updatePatient(Patient)
+
   this.patientForm.patchValue(Patient);  // fill form
   this.EditDialogVisible = true;
   }
@@ -123,10 +126,17 @@ savePatient() {
 
   deletePatient(id: number) {
     this.PatientServices.deletePatient(id);
+    console.log('patent seletes with id :',id)
   }
+   selectedProfile: Patient | null = null;
   viewProfile(id: number) {
-    // this.PatientServices.viewProfile(id);
+    this.PatientServices.viewProfile(id);
+    console.log(id)
     this.dialogVisible=true;
+    // for local only
+   this.selectedProfile = this.localPatients.find(p => p.id === id) || null;
+   console.log('profile is :',this.selectedProfile)
+
   }
    onSearch(data: any) {
     data=this.fb.control(this.searchForm)
@@ -138,7 +148,7 @@ localPatients:Patient[]=[
   {
     id: 1,
     Name: 'ahmed kadoum',
-    image:'../../../assets/images/patients/profile-2 (1).webp',
+    image: 'assets/images/patients/aa.webp',
     themeColor: '#4CAF50',
     connectedUserNumber: 2,
     dateOfBirth: new Date('1990-05-15'),
@@ -166,8 +176,8 @@ localPatients:Patient[]=[
   },
   {
     id: 2,
-    Name: 'eman Ahmed',
-    image: 'assets/images/patient2.png',
+    Name: 'linda Ahmed',
+    image: 'assets/images/patients/bb.webp',
     themeColor: '#FF9800',
     connectedUserNumber: 1,
     dateOfBirth: new Date('1985-11-23'),

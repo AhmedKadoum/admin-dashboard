@@ -69,9 +69,12 @@ export const actions = {
 
   updatePatient: createAction(
     '[Patients] Update Patients',
-    props<{ PatientId: number; name: string }>()
+    props<{ Patient:Patient }>()
   ),
-  updatePatientSuccess: createAction('[Patients] Update Patients Success'),
+  updatePatientSuccess: createAction(
+    '[Patients] Update Patients Success',
+     props<{ Patient:Patient }>()
+  ),
   updatePatientFailure: createAction(
     '[Patients] Update Patients Failure',
     props<{ error: string }>()
@@ -82,7 +85,7 @@ export const actions = {
   ),
   loadProfilesSuccess: createAction(
     '[Profiles] Load Profiles Success',
-    props<{data:Patient}>()
+    props<{data:ProfileResponse}>()
   ),
   loadProfilesFailure: createAction(
     '[Profiles] Load Profiles Failure',
@@ -131,6 +134,16 @@ export const initialState: PatientsState = {
   selectedPatientId: 0,
   selectedPatient: {} as Patient,
 };
+export interface ProfileResponse {
+  currentPatients: PatientMedication[];
+  currentConsultations: object[];
+}
+// export interface ProfilesState {
+//   currentPatients: PatientMedication[];
+//   currentConsultations: object[];
+//   loading: boolean;
+//   error?: string | null;
+// }
 // Create a reducer to handle authentication actions
 export const reducer = createReducer(
   initialState,
@@ -156,7 +169,7 @@ export const reducer = createReducer(
     actions.searchPatientsFailure,
     (state, { error }) => ({
       ...state,
-      error,
+      error:error,
       loading: false,
     })
   ),
@@ -175,12 +188,20 @@ export const reducer = createReducer(
 
   on(
     actions.createPatientSuccess,
-    actions.updatePatientSuccess,
     actions.removePatientsSuccess,
     (state) => ({
       ...state,
       loading: false,
       error: null,
+    })
+  ),
+  on(
+    actions.updatePatientSuccess,
+    (state,{Patient})=>({
+      ...state,
+      loading:false,
+
+Patients:[...state.Patients,Patient]
     })
   ),
   on(
