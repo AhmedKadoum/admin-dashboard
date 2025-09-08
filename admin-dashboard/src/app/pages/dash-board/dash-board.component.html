@@ -1,1 +1,13 @@
-<p>dash-board works!</p>
+<div class="p-12">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+    <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+    <p-chart type="pie" [data]="data1" [options]="options1" class="w-full md:w-[30rem]" />
+    <p-chart type="pie" [data]="data1" [options]="options1" class="w-full md:w-[30rem]" />
+  </div>
+
+</div>

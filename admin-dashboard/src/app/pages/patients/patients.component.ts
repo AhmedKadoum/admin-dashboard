@@ -4,9 +4,9 @@ import { PatientService } from '../../../services/patient/patient.service';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { ProfileDetailsComponent } from "./profile-details/profile-details.component";
+// import { ProfileDetailsComponent } from "./profile-details/profile-details.component";
 import { DialogModule } from 'primeng/dialog';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
@@ -16,13 +16,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { actions } from '../../store/slices/patients/patient.store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ApiPatientService } from '../../../services/patient/api/api-patient.service';
 
 @Component({
   selector: 'app-Patients',
   imports: [CommonModule,FormsModule,SelectButtonModule,ReactiveFormsModule,
     TableModule,DialogModule, ButtonModule, BreadcrumbModule,
-     ProfileDetailsComponent,IconFieldModule,InputIconModule],
+    ConfirmDialogModule,ToastModule,ConfirmPopupModule
+     ,IconFieldModule,InputIconModule],
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.css',
   standalone:true,
@@ -30,10 +34,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 export class PatientsComponent implements OnInit {
 
    private PatientServices: PatientService = inject(PatientService);
-  //   fb = inject(FormBuilder);
-  // searchForm!: FormGroup;
-
-
+   private confirmationService: ConfirmationService = inject(ConfirmationService);
   // signal
   loading: Signal<boolean> = this.PatientServices.loading$;
   Patients: Signal<Patient[] | null> = this.PatientServices.Patients$;
@@ -55,12 +56,23 @@ value1: any;
   //
   // form
    fb = inject(FormBuilder);
+  private apiPatientService = inject(ApiPatientService);
   store = inject(Store);
   searchForm!: FormGroup;
   patientForm!: FormGroup;
   ngOnInit(): void {
-      this.PatientServices.initializePatients()
-      console.log('Patient from component')
+  //   this.apiPatientService.loadPatientsData().subscribe({
+  //   next: (res) => console.log('Direct subscribe got patients:', res),
+  //   error: (err) => console.error('API error:', err)
+  // });
+  // this.apiPatientService.fetchTheme().subscribe({
+  //   next: (res) => console.log('Theme from API service:', res),
+  //   error: (err) => console.error('API error:', err)
+  // });
+  // initialize patients
+      this.PatientServices.initializeTheme("from component");
+      this.PatientServices.initializePatients();
+      console.log('Patient from api in  component',this.Patients())
       this.searchForm=this.fb.group({
         search:['']
       })
@@ -83,9 +95,9 @@ value1: any;
   }
   //
   constructor() {
-    effect(() => {
-      console.log(this.Patients())
-    });
+    // effect(() => {
+    //   console.log(this.Patients())
+    // });
   }
   // CRUD actions
   addPatient() {
@@ -124,10 +136,35 @@ savePatient() {
   }
 
 
-  deletePatient(id: number) {
+  //confirm
+ confirm(id:number) {
+  const patientId=id
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this item?',
+      header: 'Confirm Deletion',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        id=patientId
+        console.log('Deleted! id is : ',id);
     this.PatientServices.deletePatient(id);
-    console.log('patent seletes with id :',id)
+
+      },
+      reject: () => {
+        console.log('Rejected!');
+      },
+    });
   }
+
+  //  =>>>>not use now check
+
+
+  //
+
+
+
+
+
+  //
    selectedProfile: Patient | null = null;
   viewProfile(id: number) {
     this.PatientServices.viewProfile(id);

@@ -40,6 +40,10 @@ export class PatientService {
     initializePatients(): void {
       this.store.dispatch(actions.loadPatients());
     }
+    initializeTheme(aa:string): void {
+      this.store.dispatch(actions.loadTheme());
+      console.log('theme initialized from service',aa)
+    }
     // crud
 
     addPatient(name: string): void {

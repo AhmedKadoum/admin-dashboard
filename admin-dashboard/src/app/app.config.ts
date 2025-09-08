@@ -26,6 +26,7 @@ import { AuthEffects } from './store/effects/auth.effects';
 import { CategoryEffects } from './store/effects/category.effect';
 import { MedicationEffects } from './store/effects/medication.effect';
 import { PatientEffects } from './store/effects/patient.effect';
+import { ConfirmationService, MessageService } from 'primeng/api';
 // import { metaReducers, rootReducers } from './store/reducers';
 
 export const appConfig: ApplicationConfig = {
@@ -58,6 +59,7 @@ export const appConfig: ApplicationConfig = {
         tooltip: 1100   // tooltip
     }
 }),
+ConfirmationService, MessageService,
     provideHttpClient(withFetch()),
     // provideStore({ auth:authReducer}, { metaReducers }),
     provideStore(rootReducers),

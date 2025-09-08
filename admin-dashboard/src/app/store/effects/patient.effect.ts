@@ -19,7 +19,7 @@ export class PatientEffects {
         this.apiPatientService.loadPatientsData().pipe(
           map((response: Patient[]) =>
             PatientActions.actions.loadPatientsSuccess({ data: response })
-          ),
+        ),
           catchError((error) =>
             of(
               PatientActions.actions.loadPatientsFailure({
@@ -31,6 +31,28 @@ export class PatientEffects {
       )
     )
   );
+  // test
+  loadTheme$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PatientActions.actions.loadTheme),
+      tap(() => console.log(' effect triggered =>theme')),
+      mergeMap(() =>
+        this.apiPatientService.fetchTheme().pipe(
+          map((response:any) =>
+            PatientActions.actions.loadThemeSuccess({ data: response })
+        ),
+          catchError((error) =>
+            of(
+              PatientActions.actions.loadThemeFailure({
+                error: error.message,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+  //
   editPatients$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PatientActions.actions.updatePatient),

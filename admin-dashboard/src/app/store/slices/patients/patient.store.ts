@@ -36,13 +36,22 @@ export interface PatientMedication {
 // Define actions for Patient
 export const actions = {
   loadPatients: createAction('[Patients] Load Patients'),
+  loadTheme: createAction('[theme] Load theme'),//test
   loadPatientsSuccess: createAction(
     '[Patients] Load Patients Success',
     props<{ data: Patient[] }>()
   ),
+  loadThemeSuccess: createAction(
+    '[theme] Load theme Success',
+    props<{ data:any }>()//test
+  ),
   loadPatientsFailure: createAction(
     '[Patients] Load Patients Failure',
     props<{ error: string }>()
+  ),
+  loadThemeFailure: createAction(
+    '[theme] Load Theme Failure',
+    props<{ error: string }>()//test
   ),
   removePatients: createAction(
     '[Patients] Remove Patients',
