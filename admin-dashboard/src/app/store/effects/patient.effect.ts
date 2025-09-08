@@ -41,13 +41,10 @@ export class PatientEffects {
           map((response:any) =>
             PatientActions.actions.loadThemeSuccess({ data: response })
         ),
-          catchError((error) =>
-            of(
-              PatientActions.actions.loadThemeFailure({
-                error: error.message,
-              })
-            )
-          )
+          catchError((error) => {
+            console.error('Theme API failed', error);
+            return of(PatientActions.actions.loadThemeFailure({ error: error.message }));
+          })
         )
       )
     )

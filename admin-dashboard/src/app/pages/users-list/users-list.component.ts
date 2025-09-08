@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { User } from '../../../services/mock-api/mock-data.service';
 import { actions } from '../../store/slices/users/users.store';
 import { selectAllUsers, selectUserLoading, selectUserError } from '../../store/slices/users/users.store';
 
@@ -51,7 +50,7 @@ import { selectAllUsers, selectUserLoading, selectUserError } from '../../store/
   `
 })
 export class UserListComponent implements OnInit {
-  users$: Observable<User[]>;
+  users$: Observable<any[]>;
   loading$: Observable<boolean>;
   error$: Observable<string | null>;
 

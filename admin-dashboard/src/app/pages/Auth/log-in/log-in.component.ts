@@ -1,6 +1,5 @@
 import { Component, inject, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Button, ButtonLabel } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
 
@@ -11,18 +10,14 @@ import {
   FormsModule,
 } from '@angular/forms';
 
-import { auth } from '../../../store/actions';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthService } from '../../../../services/Auth/auth.service';
 import { User } from '../../../store/slices/auth/auth.store';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-log-in',
   imports: [
-    Button,
     DividerModule,
     ReactiveFormsModule,
-    ButtonLabel,
     CommonModule,
     FormsModule,
     InputTextModule,

@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import * as actions from '../../store/slices/test/test.store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { User } from '../../../services/mock-api/mock-data.service';
 
 @Component({
   selector: 'app-test',
@@ -48,7 +47,7 @@ export class TestComponent implements OnInit  {
 
   }
   // test api req
-user: User | null = null;
+user: any | null = null;
   loading = false;
   error: string | null = null;
 

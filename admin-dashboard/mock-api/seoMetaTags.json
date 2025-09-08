@@ -1,0 +1,14 @@
+{
+  "home": {
+    "title": "Home | MyShop",
+    "description": "Shop the latest deals online."
+  },
+  "cart": {
+    "title": "Your Cart | MyShop",
+    "description": "Review items in your cart before checkout."
+  },
+  "default": {
+    "title": "MyShop - Best Online Store",
+    "description": "Welcome to the best online store for everything you need."
+  }
+}

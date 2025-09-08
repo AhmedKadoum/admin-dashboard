@@ -1,12 +1,10 @@
 import {
   ApplicationConfig,
-  importProvidersFrom,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import {
-  HttpClient,
   provideHttpClient,
   withFetch,
   withInterceptors,
@@ -20,47 +18,49 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideRouterStore } from '@ngrx/router-store';
 import { rootReducers } from './store/reducers';
-import { MockDataService } from '../services/mock-api/mock-data.service';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { AuthEffects } from './store/effects/auth.effects';
 import { CategoryEffects } from './store/effects/category.effect';
 import { MedicationEffects } from './store/effects/medication.effect';
 import { PatientEffects } from './store/effects/patient.effect';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { apiInterceptor } from './interceptors/api.interceptor';
 // import { metaReducers, rootReducers } from './store/reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    provideHttpClient(withFetch(), withInterceptors([apiInterceptor])),
     provideRouterStore(),
     provideAnimationsAsync(),
-    providePrimeNG({
-      theme: {
-        preset: Aura,
-        options: {
-            cssLayer: {
-                name: 'primeng',
-                order: 'theme, base, primeng'
-            },
-            darkModeSelector: false || 'none'
-        }
+    providePrimeNG(
+      {
+        theme: {
+          preset: Aura,
+          options: {
+              cssLayer: {
+                  name: 'primeng',
+                  order: 'theme, base, primeng'
+              },
+              darkModeSelector: false || 'none'
+          }
 
+        },
       },
-    },
-  {
-    ripple: true
-},
-{
-    zIndex: {
-        modal: 1100,    // dialog, sidebar
-        overlay: 1000,  // dropdown, overlaypanel
-        menu: 1000,     // overlay menus
-        tooltip: 1100   // tooltip
-    }
-}),
-ConfirmationService, MessageService,
-    provideHttpClient(withFetch()),
+      {
+          ripple: true
+      },
+      {
+          zIndex: {
+              modal: 1100,    // dialog, sidebar
+              overlay: 1000,  // dropdown, overlaypanel
+              menu: 1000,     // overlay menus
+              tooltip: 1100   // tooltip
+          }
+      }
+    ),
+    ConfirmationService,
+    MessageService,
     // provideStore({ auth:authReducer}, { metaReducers }),
     provideStore(rootReducers),
     provideEffects([AuthEffects, CategoryEffects,MedicationEffects,PatientEffects]),
@@ -70,14 +70,5 @@ ConfirmationService, MessageService,
       trace: false,
       logOnly: false, //true in production
     }),
-    importProvidersFrom(
-      HttpClientInMemoryWebApiModule.forRoot(MockDataService, {
-        delay: 500, // Simulate network delay
-        apiBase: 'api/',
-        passThruUnknownUrl: false, // Set to true if you have real APIs too
-      })
-    ),
-    // For in-memory web API
-    { provide: 'MockDataService', useClass: MockDataService },
   ],
 };

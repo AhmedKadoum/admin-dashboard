@@ -71,8 +71,8 @@ value1: any;
   // });
   // initialize patients
       this.PatientServices.initializeTheme("from component");
-      this.PatientServices.initializePatients();
-      console.log('Patient from api in  component',this.Patients())
+      // this.PatientServices.initializePatients();
+      // console.log('Patient from api in  component',this.Patients())
       this.searchForm=this.fb.group({
         search:['']
       })

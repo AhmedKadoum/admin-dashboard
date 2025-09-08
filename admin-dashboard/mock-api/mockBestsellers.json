@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "name": "Dior Sauvage Eau de Parfum",
+    "img_url": "https://ramfabeauty.com/cdn/shop/files/sauvage-edp-m-christian-dior-878663.jpg?v=1726724904",
+    "price_before_discount": 120.00,
+    "price_after_discount": 95.00,
+    "discount_percentage": 20.83,
+    "description": "Imagine being able to enjoy a moment of togetherness with your horse and receiving beautiful photos that perfectly capture these moments of happiness and trust. Let me accompany you in this moment. Calmly and with a lot of peace and mindfulness, I will follow you and your horse like a shadow and capture your loving relationship in photographs. This way, you can focus solely on your horse and your bond."
+  },
+  {
+    "id": 2,
+    "name": "peche mirage perfume",
+    "img_url": "https://www.guerlain.com/on/demandware.static/-/Sites-GSA_US_Storefront_catalog_new_DO_NOT_TOUCH/default/dwf9491c6d/HeroBanner_NewTemplate/Fragrance/A&M/AM-PECHE-MIRAGE_HEADER-BANNER_PLP_DESKTOP.jpg",
+    "price_after_discount": 125.00,
+    "description":  "Imagine being able to enjoy a moment of togetherness with your horse and receiving beautiful photos that perfectly capture these moments of happiness and trust. Let me accompany you in this moment. Calmly and with a lot of peace and mindfulness, I will follow you and your horse like a shadow and capture your loving relationship in photographs. This way, you can focus solely on your horse and your bond."
+  },
+  {
+    "id": 3,
+    "name": "Tom Ford Black Orchid",
+    "img_url": "https://cdn.shopify.com/s/files/1/0853/1863/1748/files/Tom-Ford-Black-Orchid-Eau-de-Parfum-Spray-Fem.png?resize=598%2C598&ssl=1",
+    "price_before_discount": 180.00,
+    "price_after_discount": 140.00,
+    "discount_percentage": 22.22,
+    "description":  "Imagine being able to enjoy a moment of togetherness with your horse and receiving beautiful photos that perfectly capture these moments of happiness and trust. Let me accompany you in this moment. Calmly and with a lot of peace and mindfulness, I will follow you and your horse like a shadow and capture your loving relationship in photographs. This way, you can focus solely on your horse and your bond."
+  },
+  {
+    "id": 4,
+    "name": "Yves Saint Laurent",
+    "img_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/000000000493111528/7_EFzaj41-000000000493111528_2.jpg",
+    "price_before_discount": 110.00,
+    "price_after_discount": 85.00,
+    "discount_percentage": 22.73,
+    "description":  "Imagine being able to enjoy a moment of togetherness with your horse and receiving beautiful photos that perfectly capture these moments of happiness and trust. Let me accompany you in this moment. Calmly and with a lot of peace and mindfulness, I will follow you and your horse like a shadow and capture your loving relationship in photographs. This way, you can focus solely on your horse and your bond."
+  },
+  {
+    "id": 5,
+    "name": "DIOR Homme Parfum",
+    "img_url": "https://shop-beauty.dior.ae/cdn/shop/files/Y0997193_C099700665_E01_GHC.jpg?v=1738245569&width=833",
+    "price_before_discount": 350.00,
+    "price_after_discount": 300.00,
+    "discount_percentage": 14.29,
+    "description":  "Imagine being able to enjoy a moment of togetherness with your horse and receiving beautiful photos that perfectly capture these moments of happiness and trust. Let me accompany you in this moment. Calmly and with a lot of peace and mindfulness, I will follow you and your horse like a shadow and capture your loving relationship in photographs. This way, you can focus solely on your horse and your bond."
+  },
+  {
+    "id": 8,
+    "name": "Yves Saint Laurent La Nuit de L'Homme",
+    "category_id":  4,
+    "img_url": "https://cdn-1.hosting.anfa.media/upload/q_50/https://waheteter.com/wp-content/uploads/2020/09/Yves-Saint-Laurent-La-Nuit-de-LHomme-Eau-de-Toilette.jpg",
+    "price_before_discount": 110.00,
+    "price_after_discount": 85.00,
+    "discount_percentage": 22.73,
+    "description":  "Imagine being able to enjoy a moment of togetherness with your horse and receiving beautiful photos that perfectly capture these moments of happiness and trust. Let me accompany you in this moment. Calmly and with a lot of peace and mindfulness, I will follow you and your horse like a shadow and capture your loving relationship in photographs. This way, you can focus solely on your horse and your bond."
+  },
+  {
+    "id": 9,
+    "name": "Creed Aventus",
+    "category_id":  1,
+    "img_url": "https://perfumedubai.com/cdn/shop/articles/E364nJnUUAI7aCe_1_1_1380x.png?v=1698917239",
+    "price_before_discount": 350.00,
+    "price_after_discount": 300.00,
+    "discount_percentage": 14.29
+  },
+  {
+    "id": 44,
+    "name": "Yves Saint Laurent",
+    "img_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/000000000493111528/7_EFzaj41-000000000493111528_2.jpg",
+    "price_before_discount": 110.00,
+    "price_after_discount": 85.00,
+    "discount_percentage": 22.73,
+    "description":  "Imagine being able to enjoy a moment of togetherness with your horse and receiving beautiful photos that perfectly capture these moments of happiness and trust. Let me accompany you in this moment. Calmly and with a lot of peace and mindfulness, I will follow you and your horse like a shadow and capture your loving relationship in photographs. This way, you can focus solely on your horse and your bond."
+  },
+  {
+    "id": 55,
+    "name": "DIOR Homme Parfum",
+    "img_url": "https://shop-beauty.dior.ae/cdn/shop/files/Y0997193_C099700665_E01_GHC.jpg?v=1738245569&width=833",
+    "price_before_discount": 350.00,
+    "price_after_discount": 300.00,
+    "discount_percentage": 14.29,
+    "description":  "Imagine being able to enjoy a moment of togetherness with your horse and receiving beautiful photos that perfectly capture these moments of happiness and trust. Let me accompany you in this moment. Calmly and with a lot of peace and mindfulness, I will follow you and your horse like a shadow and capture your loving relationship in photographs. This way, you can focus solely on your horse and your bond."
+  },
+  {
+    "id": 88,
+    "name": "Yves Saint Laurent La Nuit de L'Homme",
+    "category_id":  4,
+    "img_url": "https://cdn-1.hosting.anfa.media/upload/q_50/https://waheteter.com/wp-content/uploads/2020/09/Yves-Saint-Laurent-La-Nuit-de-LHomme-Eau-de-Toilette.jpg",
+    "price_before_discount": 110.00,
+    "price_after_discount": 85.00,
+    "discount_percentage": 22.73,
+    "description":  "Imagine being able to enjoy a moment of togetherness with your horse and receiving beautiful photos that perfectly capture these moments of happiness and trust. Let me accompany you in this moment. Calmly and with a lot of peace and mindfulness, I will follow you and your horse like a shadow and capture your loving relationship in photographs. This way, you can focus solely on your horse and your bond."
+  },
+  {
+    "id": 99,
+    "name": "Creed Aventus",
+    "category_id":  1,
+    "img_url": "https://perfumedubai.com/cdn/shop/articles/E364nJnUUAI7aCe_1_1_1380x.png?v=1698917239",
+    "price_before_discount": 350.00,
+    "price_after_discount": 300.00,
+    "discount_percentage": 14.29
+  }
+]

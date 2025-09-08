@@ -1,6 +1,5 @@
 // src/app/store/user/user.actions.ts
 import { createAction, createFeatureSelector, createSelector, props } from '@ngrx/store';
-import { User } from '../../../../services/mock-api/mock-data.service';
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import * as UserActions from './users.store';
@@ -13,7 +12,7 @@ export const actions=
   loadUsers : createAction('[User] Load Users'),
   loadUsersSuccess : createAction(
   '[User] Load Users Success',
-  props<{ users: User[] }>()
+  props<{ users: any[] }>()
 ),
  loadUsersFailure : createAction(
   '[User] Load Users Failure',
@@ -22,20 +21,20 @@ export const actions=
 
  addUser : createAction(
   '[User] Add User',
-  props<{ user: Omit<User, 'id'> }>()
+  props<{ user: Omit<any, 'id'> }>()
 ),
  addUserSuccess : createAction(
   '[User] Add User Success',
-  props<{ user: User }>()
+  props<{ user: any }>()
 ),}
 // src/app/store/user/user.reducer.ts
 
-export interface UserState extends EntityState<User> {
+export interface UserState extends EntityState<any> {
   loading: boolean;
   error: string | null;
 }
 
-export const userAdapter = createEntityAdapter<User>();
+export const userAdapter = createEntityAdapter<any>();
 
 export const initialState: UserState = userAdapter.getInitialState({
   loading: false,

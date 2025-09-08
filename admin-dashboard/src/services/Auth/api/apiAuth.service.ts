@@ -11,7 +11,7 @@ export class apiAuthService {
 
   fetchUserData(username: string, password: string): Observable<AuthState> {
     // Replace '/api/user' with the actual endpoint for fetching user data
-    return this.http.get<AuthState>('/api/users').pipe(
+    return this.http.get<AuthState>('users').pipe(
       map((response: AuthState) => {
         return response;
       })

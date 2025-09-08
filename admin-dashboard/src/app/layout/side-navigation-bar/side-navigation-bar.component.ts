@@ -1,11 +1,4 @@
 import { Component } from '@angular/core';
-import { CategoriesComponent } from "../../pages/categories/categories.component";
-import { DashBoardComponent } from "../../pages/dash-board/dash-board.component";
-import { HelpPageComponent } from "../../pages/help-page/help-page.component";
-import { MedicationsComponent } from "../../pages/medications/medications.component";
-import { PatientsComponent } from "../../pages/patients/patients.component";
-import { SettingsComponent } from "../../pages/settings/settings.component";
-import { SupportComponent } from "../../pages/support/support.component";
 
 
 //
@@ -17,10 +10,9 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-side-navigation-bar',
-  imports: [CategoriesComponent, DashBoardComponent, HelpPageComponent,
-     MedicationsComponent, PatientsComponent, SettingsComponent,
-      SupportComponent, Button, AvatarModule, AvatarGroupModule , DrawerModule,
-      RouterModule,CommonModule],
+  imports: [
+    Button, AvatarModule, AvatarGroupModule, DrawerModule,
+    RouterModule, CommonModule],
   templateUrl: './side-navigation-bar.component.html',
   styleUrl: './side-navigation-bar.component.css'
 })

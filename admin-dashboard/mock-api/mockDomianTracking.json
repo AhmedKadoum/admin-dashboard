@@ -1,0 +1,29 @@
+{
+  "customDomain": "https://www.my-new-shop.com",
+  "facebook":{
+    "items":[
+      {
+        "id":"1014486847516326",
+        "name":"Facebook Test 1"
+      },
+      {
+        "id":"1364998541250200",
+        "name":"Facebook Test 2"
+      }
+    ],
+    "isActive": true
+  },
+  "google":{
+    "items":[
+      {
+        "id":"G-QELG1FCD02",
+        "name":"Google Test 1"
+      },
+      {
+        "id":"G-77PRCN6BR9",
+        "name":"Google Test 2"
+      }
+    ],
+    "isActive": true
+  }
+}

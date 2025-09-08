@@ -1,30 +1,31 @@
 // src/app/core/services/test.service.ts
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, catchError, tap, delay } from 'rxjs';
-import { User } from '../mock-api/mock-data.service';
+import { Observable, throwError, catchError, tap, delay, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TestService {
-  private apiUrl = 'api/users'; // Note: 'api/' prefix for in-memory web API
+  private http: HttpClient = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
 
-  getUser(): Observable<User> {
+  constructor() {}
+
+  getUser(): Observable<any> {
     console.log('Fetching user data...');
 
     // Simulate network delay for better visibility in devtools
-    return this.http.get<User>(this.apiUrl).pipe(
+    return this.http.get<any>('users').pipe(
       delay(1000), // 1 second delay to see request in network tab
-      tap(user => console.log('User fetched:', user)),
+      tap((response) => console.log('User fetched:', response)),
+      map((response: any) => response),
       catchError(this.handleError)
     );
   }
 
-  getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/${id}`).pipe(
+  getUserById(id: number): Observable<any> {
+    return this.http.get<any>(`users/${id}`).pipe(
       delay(1000),
       tap(user => console.log('User by ID fetched:', user)),
       catchError(this.handleError)
