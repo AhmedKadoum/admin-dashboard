@@ -1,38 +1,102 @@
 [
-{
-  "id": 0,
-  "category_name": "all",
-  "assigned_products":"22",
-  "description": "if you didn’t assign a product to a category it will be assigned to this category be default."
-},
-{
-  "id": 1,
-  "category_name": "best_seller",
-  "assigned_products":"5",
-  "description": "Best seller is a fixed section in the shop, it won’t appear until assigning a product to it."
-},
-{
-  "id": 2,
-  "category_name": "webinar",
-  "assigned_products":"3",
-  "description": "Test 2"
-},
-{
-  "id": 3,
-  "category_name": "software",
-  "assigned_products":"4",
-  "description": "Test 3"
-},
-{
-  "id": 4,
-  "category_name": "e_books",
-  "assigned_products":"3",
-  "description": "Test 4"
-},
-{
-  "id": 5,
-  "category_name": "audio_book_download",
-  "assigned_products":"4",
-  "description": "Test 5"
-}
+  {
+    "id": 1,
+    "name": "Cardiology",
+    "medications": [101, 102, 103]
+  },
+  {
+    "id": 2,
+    "name": "Neurology",
+    "medications": [201, 202]
+  },
+  {
+    "id": 3,
+    "name": "Dermatology",
+    "medications": [3001, 3002]
+  },
+  {
+    "id": 4,
+    "name": "Pediatrics",
+    "medications": [4001, 4002, 4003]
+  },
+  {
+    "id": 5,
+    "name": "Oncology",
+    "medications": [5001, 5002]
+  },
+  {
+    "id": 6,
+    "name": "Orthopedics",
+    "medications": [6001, 6002, 6003]
+  },
+  {
+    "id": 7,
+    "name": "Psychiatry",
+    "medications": [7001, 7002]
+  },
+  {
+    "id": 8,
+    "name": "Gynecology",
+    "medications": [8001, 8002, 8003]
+  },
+  {
+    "id": 9,
+    "name": "Endocrinology",
+    "medications": [9001, 9002]
+  },
+  {
+    "id": 10,
+    "name": "Gastroenterology",
+    "medications": [10001, 10002, 10003]
+  },
+  {
+    "id": 11,
+    "name": "Pulmonology",
+    "medications": [11001, 11002]
+  },
+  {
+    "id": 12,
+    "name": "Rheumatology",
+    "medications": [12001, 12002, 12003]
+  },
+  {
+    "id": 13,
+    "name": "Ophthalmology",
+    "medications": [13001, 13002]
+  },
+  {
+    "id": 14,
+    "name": "Urology",
+    "medications": [14001, 14002, 14003]
+  },
+  {
+    "id": 15,
+    "name": "Hematology",
+    "medications": [15001, 15002]
+  },
+  {
+    "id": 16,
+    "name": "Infectious Diseases",
+    "medications": [16001, 16002, 16003]
+  },
+  {
+    "id": 17,
+    "name": "Nephrology",
+    "medications": [17001, 17002]
+  },
+  {
+    "id": 18,
+    "name": "Allergy and Immunology",
+    "medications": [18001, 18002, 18003]
+  },
+  {
+    "id": 19,
+    "name": "Geriatrics",
+    "medications": [19001, 19002]
+  },
+  {
+    "id": 20,
+    "name": "Emergency Medicine",
+    "medications": [20001, 20002, 20003]
+  }
 ]

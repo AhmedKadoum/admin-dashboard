@@ -12,6 +12,7 @@ import fonts from './fonts.json' with {type: 'json'};
 import colorOptions from './color-options.json' with {type: 'json'};
 import orderFormOptions from './order-form.json' with {type: 'json'};
 import categories from './mockCategories.json' with {type: 'json'};
+import patients from './mockPatients.json' with {type: 'json'};
 import discounts from './mockDiscounts.json' with {type: 'json'};
 import domainTracking from './mockDomianTracking.json' with { type: "json" };
 import seoMetaTags from './seoMetaTags.json' with { type: "json" };
@@ -28,6 +29,8 @@ app.use(express.json());
 // API Routes
 app.get('/api/users', (req, res) => {
     console.log(req.query)
+    const { username, password } = req.query;
+     console.log('Login attempt:', username, password);
 
 
     const users = [
@@ -48,21 +51,25 @@ app.get('/api/users', (req, res) => {
         profilePictureUrl: 'https://example.com/profile/admin.jpg',
       },
     ];
-    // const authState = {
-    //   token: '12345',
-    //   user: users[0],
-    //   error: null,
-    //   loading: false,
-    // };
+    //
+const user = users.find(
+    (u) => u.username === username && u.password === password
+  );
 
-
-
+  if (!user) {
+    return res.status(401).json({
+      status: 401,
+      message: 'Invalid username or password',
+      data: null,
+    });
+  }
+  //
     res.json({
         status: 200,
-        message: "Products fetched successfully",
+        message: "users fetched successfully",
         data: {
                 token: '12345',
-                user: users[0],
+                user:user,
                 error: null,
                 loading: false,
         },
@@ -77,7 +84,39 @@ app.get('/api/theme', (req, res) => {
         theme: theme1,
     });
 });
+app.get('/api/categories', (req, res) => {
+    console.log(req.query)
+    res.json({
+        status: 200,
+        message: "Category fetched successfully",
+        data: categories ,
+    });
+});
+// test
+app.get('/api/patients', (req, res) => {
+    console.log(req.query)
+    res.json({
+        status: 200,
+        message: "patient fetched successfully",
+        data: patients ,
+    });
+});
+app.get('/api/patients/:id', (req, res) => {
+  const id = Number(req.params.id); // get ID from URL
+  const patient = patients.find(p => p.id === id);
 
+  if (!patient) {
+    return res.status(404).json({ status: 404, message: 'Patient not found' });
+  }
+
+  res.json({
+    status: 200,
+    message: 'Patient fetched successfully',
+    data: patient,
+  });
+});
+
+// test end
 
 
 
@@ -160,6 +199,71 @@ app.get('/api/products', (req, res) => {
     },
   });
 });
+
+// app.get('/api/patients', (req, res) => {
+//   const {
+//     currentPage = 1,
+//     sort = 'name_asc',
+//     categoryIds = '',
+//     search = '',
+//   } = req.query;
+
+
+//   const limit = 9;
+//   const page = parseInt(currentPage);
+//   const parsedCategoryIds = categoryIds.split(',').map(Number);
+
+
+//   // Filter by category IDs
+//   let filteredPatients = patients;
+//   if (categoryIds) {
+//     filteredPatients = patients.filter(patient =>
+//       parsedCategoryIds.includes(patient.patient_id)
+//     );
+//     console.log(patient)
+//     console.log(filteredPatients)
+//   }
+
+  // Filter by search keyword
+  // if (search) {
+  //   const searchLower = search.toLowerCase();
+  //   filteredPatients = filteredPatients.filter(patient =>
+  //     patient.name.toLowerCase().includes(searchLower) ||
+  //     patient.id === parseInt(search)
+  //   );
+  // }
+
+  // // Sort products
+  // let sortedPatients = [...filteredPatients];
+  // switch (sort) {
+  //   case 'name_asc':
+  //     sortedPatients.sort((a, b) => a.name.localeCompare(b.name));
+  //     break;
+  //   case 'name_desc':
+  //     sortedPatients.sort((a, b) => b.name.localeCompare(a.name));
+  //     break;
+  //   default:
+  //     sortedPatients.sort((a, b) => a.name.localeCompare(b.name));
+  // }
+
+  // Pagination
+//   const startIndex = (page - 1) * limit;
+//   const paginatedPatients = sortedPatients.slice(startIndex, startIndex + limit);
+//   const totalPages = Math.ceil(sortedPatients.length / limit);
+
+//   res.json({
+//     status: 200,
+//     message: "Patient fetched successfully",
+//     data: {
+//       items: paginatedPatients,
+//       pagination: {
+//         total: sortedPatients.length,
+//         currentPage: page,
+//         totalPages: totalPages,
+//       },
+//     },
+//   });
+// });
 
 
 

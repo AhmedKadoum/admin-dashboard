@@ -9,8 +9,7 @@
     "gender": "Male",
     "currentPatients": [
       {
-        "PatientId": 1,
-        "PatientName": "Mohamed Mohamed",
+        "MedId": 1,
         "MedicationName": "Paracetamol",
         "PatientCategory": "Cardiology",
         "dosage": "10mg",
@@ -20,6 +19,41 @@
         "frequency": "Once daily",
         "status": "token",
         "notes": "Take after meals"
+      },{
+        "MedId": 2,
+        "MedicationName": "Paracetamol-b ",
+        "PatientCategory": "Cardiology-b",
+        "dosage": "20mg",
+        "quantity": 10,
+        "startDate": "2025-08-15",
+        "endDate": "2025-09-30",
+        "frequency": "Twice daily",
+        "status": "missed",
+        "notes": "Take before meals"
+      }
+      ,{
+        "MedId": 3,
+        "MedicationName": "Paracetamol-f ",
+        "PatientCategory": "Cardiology-f",
+        "dosage": "40mg",
+        "quantity": 10,
+        "startDate": "2025-08-15",
+        "endDate": "2025-09-30",
+        "frequency": "Twice daily",
+        "status": "skipped",
+        "notes": "Take before meals"
+      }
+      ,{
+        "MedId": 4,
+        "MedicationName": "Paracetamol-c ",
+        "PatientCategory": "Cardiology-c",
+        "dosage": "50mg",
+        "quantity": 70,
+        "startDate": "2025-08-15",
+        "endDate": "2025-09-30",
+        "frequency": "Twice daily",
+        "status": "token",
+        "notes": "Take before meals"
       }
     ],
     "currentConsultations": [
@@ -35,6 +69,20 @@
         "StartDate": "2025-06-15",
         "EndDate": "2025-06-30"
       }
+      ,
+      {
+        "id": 3,
+        "name": "dermatology",
+        "StartDate": "2025-06-15",
+        "EndDate": "2025-06-30"
+      }
+      ,
+      {
+        "id": 4,
+        "name": "dental",
+        "StartDate": "2025-06-15",
+        "EndDate": "2025-06-30"
+      }
     ]
   },
   {
@@ -47,8 +95,7 @@
     "gender": "Female",
     "currentPatients": [
       {
-        "PatientId": 2,
-        "PatientName": "Layla Hassan",
+        "MedId": 1,
         "MedicationName": "Ibuprofen",
         "PatientCategory": "Neurology",
         "dosage": "200mg",
@@ -58,6 +105,30 @@
         "frequency": "Twice daily",
         "status": "active",
         "notes": "Take with water"
+      },
+      {
+        "MedId": 2,
+        "MedicationName": "Paracetamol-b ",
+        "PatientCategory": "Cardiology-b",
+        "dosage": "20mg",
+        "quantity": 10,
+        "startDate": "2025-08-15",
+        "endDate": "2025-09-30",
+        "frequency": "Twice daily",
+        "status": "missed",
+        "notes": "Take before meals"
+      }
+      ,{
+        "MedId": 3,
+        "MedicationName": "Paracetamol-f ",
+        "PatientCategory": "Cardiology-f",
+        "dosage": "40mg",
+        "quantity": 10,
+        "startDate": "2025-08-15",
+        "endDate": "2025-09-30",
+        "frequency": "Twice daily",
+        "status": "skipped",
+        "notes": "Take before meals"
       }
     ],
     "currentConsultations": [
@@ -72,21 +143,32 @@
         "name": "MRI Scan Review",
         "StartDate": "2025-08-01",
         "EndDate": "2025-08-05"
+      },
+      {
+        "id": 3,
+        "name": "dermatology",
+        "StartDate": "2025-08-01",
+        "EndDate": "2025-08-05"
+      },
+      {
+        "id": 4,
+        "name": "skin care",
+        "StartDate": "2025-08-01",
+        "EndDate": "2025-08-05"
       }
     ]
   },
   {
     "id": 3,
     "Name": "Omar Khaled",
-    "image": "assets/images/patients/cc.webp",
+    "image": "assets/images/patients/ee.webp",
     "themeColor": "#FF5722",
     "connectedUserNumber": 3,
     "dateOfBirth": "1995-03-12",
     "gender": "Male",
     "currentPatients": [
       {
-        "PatientId": 3,
-        "PatientName": "Rana Youssef",
+        "MedId": 1,
         "MedicationName": "Metformin",
         "PatientCategory": "Diabetes",
         "dosage": "500mg",
@@ -96,6 +178,30 @@
         "frequency": "Twice daily",
         "status": "pending",
         "notes": "Monitor blood sugar regularly"
+      },
+      {
+        "MedId": 2,
+        "MedicationName": "Paracetamol-b ",
+        "PatientCategory": "Cardiology-b",
+        "dosage": "20mg",
+        "quantity": 10,
+        "startDate": "2025-08-15",
+        "endDate": "2025-09-30",
+        "frequency": "Twice daily",
+        "status": "missed",
+        "notes": "Take before meals"
+      }
+      ,{
+        "MedId": 3,
+        "MedicationName": "Paracetamol-f ",
+        "PatientCategory": "Cardiology-f",
+        "dosage": "40mg",
+        "quantity": 10,
+        "startDate": "2025-08-15",
+        "endDate": "2025-09-30",
+        "frequency": "Twice daily",
+        "status": "skipped",
+        "notes": "Take before meals"
       }
     ],
     "currentConsultations": [
@@ -123,8 +229,7 @@
     "gender": "Female",
     "currentPatients": [
       {
-        "PatientId": 4,
-        "PatientName": "Huda Ibrahim",
+        "MedId": 1,
         "MedicationName": "Amoxicillin",
         "PatientCategory": "ENT",
         "dosage": "250mg",
@@ -161,8 +266,7 @@
     "gender": "Male",
     "currentPatients": [
       {
-        "PatientId": 5,
-        "PatientName": "Ali Mansour",
+        "MedId": 1,
         "MedicationName": "Losartan",
         "PatientCategory": "Cardiology",
         "dosage": "50mg",
@@ -199,8 +303,7 @@
     "gender": "Male",
     "currentPatients": [
       {
-        "PatientId": 6,
-        "PatientName": "Salma Farouk",
+        "MedId": 1,
         "MedicationName": "Atorvastatin",
         "PatientCategory": "Cholesterol",
         "dosage": "20mg",

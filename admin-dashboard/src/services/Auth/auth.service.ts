@@ -14,7 +14,7 @@ export class AuthService {
   loading$: Signal<boolean> = this.store.selectSignal(
     authFeatures.selectLoading
   );
-  user$: Signal<User | null> = this.store.selectSignal(authFeatures.selectUser);
+  users$: Signal<User | null> = this.store.selectSignal(authFeatures.selectUser);
   token$: Signal<string | null> = this.store.selectSignal(
     authFeatures.selectToken
   );
@@ -22,8 +22,8 @@ export class AuthService {
     authFeatures.selectError
   );
 
-  login(credential: { username: string; password: string }): void {
-    this.store.dispatch(actions.auth.login(credential));
+  login(credential: { username: string; password: string }){
+    this.store.dispatch(actions.auth.login({credential}))
   }
 
   // }

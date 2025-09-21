@@ -11,13 +11,11 @@ import { map, Observable } from 'rxjs';
 })
 export class apiCategoryService {
   private http: HttpClient = inject(HttpClient);
-
-  loadCategoriesData(): Observable<Category[]> {
-    // Replace '/api/user' with the actual endpoint for fetching user data
-    return this.http.get<Category[]>('http://localhost:3000/categories').pipe(
-      map((response: Category[]) => {
-        console.log('response is ',response)
-        return response;
+  loadCategoriesData(): Observable<any> {
+    return this.http.get<any>('/api/categories').pipe(
+      map((response: any) => {
+        console.log('response is from load categories ',response)
+        return response.data;
       })
     );
   }

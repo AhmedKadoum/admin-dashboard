@@ -15,17 +15,19 @@ export class AuthEffects {
   // 🔹 Effect listens for Login action
   login$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AuthActions.actions.login), // when [Auth] Login dispatched
+      ofType(AuthActions.actions.login),
       tap(() => console.log('🔄 Authentication effect triggered')),
       tap(() => this.router.navigate(['/dashboard'])),
-      exhaustMap(({ username, password }) =>
-        this.apiAuthService.fetchUserData(username, password).pipe(
-          map((response: AuthState) =>
+
+      exhaustMap(({credential}) =>
+        this.apiAuthService.fetchUserData(credential.username,credential.password).pipe(
+          map((response:{token:any,user:any}) =>
             AuthActions.actions.loginSuccess({
-              token: response.token as string,
-              user: response.user as AuthActions.User,
+              token:response.token,
+              user:response.user
             })
           ),
+          tap(() => console.log('Login effect processed',credential)),
           catchError((error) =>
             of(AuthActions.actions.loginFailure({ error: error.message }))
           )
@@ -33,7 +35,24 @@ export class AuthEffects {
       )
     )
   );
-
+loginSuccess$ = createEffect(
+  () =>
+    this.actions$.pipe(
+      ofType(AuthActions.actions.loginSuccess),
+      tap(({ user }) => {
+        if (user.role === 'Admin') {
+          this.router.navigate(['/dashboard']);
+        } else {
+         console.log('Access denied - Admins only');
+        }
+      }),
+      tap(({ token, user }) => {
+          localStorage.setItem('auth', JSON.stringify({ token, user }));
+      }),
+      tap(() => console.log('Login successful, navigating...'))
+    ),
+  { dispatch: false }
+);
   // 🔹 On login success → save auth info to localStorage
   // persistAuth$ = createEffect(
   //   () =>

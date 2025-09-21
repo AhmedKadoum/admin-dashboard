@@ -14,12 +14,11 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { actions } from '../../store/slices/patients/patient.store';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ApiPatientService } from '../../../services/patient/api/api-patient.service';
+
 
 @Component({
   selector: 'app-Patients',
@@ -33,46 +32,50 @@ import { ApiPatientService } from '../../../services/patient/api/api-patient.ser
 })
 export class PatientsComponent implements OnInit {
 
-   private PatientServices: PatientService = inject(PatientService);
-   private confirmationService: ConfirmationService = inject(ConfirmationService);
+  private PatientServices: PatientService = inject(PatientService);
+  private confirmationService: ConfirmationService = inject(ConfirmationService);
+  fb = inject(FormBuilder);
+  store = inject(Store);
+  searchForm!: FormGroup;
+  patientForm!: FormGroup;
+
   // signal
   loading: Signal<boolean> = this.PatientServices.loading$;
   Patients: Signal<Patient[] | null> = this.PatientServices.Patients$;
+  FilteredPatients: Signal<Patient[] | null> = this.PatientServices.FilteredPatients$;
   error: Signal<string | null> = this.PatientServices.error$;
+  selectedPatient:Signal<Patient|null>= this.PatientServices.SelectedPatient$
+
   // breadCrumb
   home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
-  items: MenuItem[] = [{ label: 'Dashboard', routerLink: '/dashboard' }, { label: 'Patients' }];
-// default dialogue
+  items: MenuItem[] = [{ label: 'Dashboard', routerLink: '/dashboard' },
+    { label: 'Patients' }];
+
+
   dialogVisible: boolean=false;
-EditDialogVisible:boolean=false
+  EditDialogVisible: boolean=false;
 // medication& consultation state
 stateOptions = [
   { label: 'Medication', value: 'medication' },
   { label: 'Consultation', value: 'consultation' }
 ];
-value:string="medication";
-// /////////////////////
-value1: any;
-  //
+value:string='medication'//default
   // form
-   fb = inject(FormBuilder);
-  private apiPatientService = inject(ApiPatientService);
-  store = inject(Store);
-  searchForm!: FormGroup;
-  patientForm!: FormGroup;
+
   ngOnInit(): void {
-  //   this.apiPatientService.loadPatientsData().subscribe({
-  //   next: (res) => console.log('Direct subscribe got patients:', res),
-  //   error: (err) => console.error('API error:', err)
-  // });
-  // this.apiPatientService.fetchTheme().subscribe({
-  //   next: (res) => console.log('Theme from API service:', res),
-  //   error: (err) => console.error('API error:', err)
-  // });
+
   // initialize patients
-      this.PatientServices.initializeTheme("from component");
-      // this.PatientServices.initializePatients();
-      // console.log('Patient from api in  component',this.Patients())
+
+      this.PatientServices.initializePatients();
+      console.log('Patient from api in  component',this.Patients());
+       this.patientForm = this.fb.group({
+       id: [0],
+       Name: [''],
+       themeColor: ['#4CAF50'],
+       dateOfBirth: [new Date()],
+       gender: ['Male']
+       });
+      // build search form///need check?xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       this.searchForm=this.fb.group({
         search:['']
       })
@@ -82,16 +85,8 @@ value1: any;
         distinctUntilChanged()
       )
       .subscribe((value: string) => {
-        this.store.dispatch(actions.searchPatients({ query: value }));
+        this.PatientServices.searchCategory(value.toString());
       });
-        // build empty patient form
-  this.patientForm = this.fb.group({
-    id: [0],
-    Name: [''],
-    themeColor: ['#4CAF50'],
-    dateOfBirth: [new Date()],
-    gender: ['Male']
-  });
   }
   //
   constructor() {
@@ -101,58 +96,49 @@ value1: any;
   }
   // CRUD actions
   addPatient() {
-  this.store.dispatch(actions.selectPatient({ patient: null }));
-  this.patientForm.reset({
-    id: 0,
-    Name: '',
-    themeColor: '#4CAF50',
-    dateOfBirth: new Date(),
-    gender: 'Male'
-  });
-  this.EditDialogVisible = true;
-  console.log(this.patientForm.value)
+    this.EditDialogVisible=true;
+    this.patientForm.reset({id:0,name:'',image: "./../../../assets/images/patients/ee.webp"
+      ,themeColor:'#4CAF50',dateOfBirth:new Date()})
 }
 // Save changes
+editPatient(Patient: Patient) {
+  console.log('patient is ',Patient);
+  // const updated = { ...Patient, name: Patient.Name + ' (Updated)', id: 5 };
+  // this.PatientServices.updatePatient(Patient)
+
+this.patientForm.patchValue(Patient);  // fill form
+this.EditDialogVisible = true;
+}
 savePatient() {
   const patient: Patient = this.patientForm.value;
-
-  if (patient.id && patient.id !== 0) {
-    this.store.dispatch(actions.updatePatient({ Patient:patient }));
+console.log('save patient',patient)
+  if (patient.id && patient.id > 0) {
+    this.PatientServices.updatePatient(patient);
   } else {
-    this.store.dispatch(actions.createPatient({ name: patient.Name }));
+    this.PatientServices.addPatient( patient);
+    console.log('add new patient',patient.name)
   }
 
   this.EditDialogVisible = false;
   console.log(patient)
 }
-
-  editPatient(Patient: Patient) {
-    console.log('patient is ',Patient);
-    // const updated = { ...Patient, name: Patient.Name + ' (Updated)', id: 5 };
-    this.PatientServices.updatePatient(Patient)
-
-  this.patientForm.patchValue(Patient);  // fill form
-  this.EditDialogVisible = true;
-  }
-
-
   //confirm
  confirm(id:number) {
-  const patientId=id
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete this item?',
       header: 'Confirm Deletion',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        id=patientId
+        this.PatientServices.deletePatient(id);
         console.log('Deleted! id is : ',id);
-    this.PatientServices.deletePatient(id);
-
+        this.confirmationService.close();
       },
       reject: () => {
         console.log('Rejected!');
+        this.confirmationService.close();
       },
     });
+
   }
 
   //  =>>>>not use now check
@@ -165,26 +151,26 @@ savePatient() {
 
 
   //
-   selectedProfile: Patient | null = null;
+  //  selectedProfile: Patient | null = null;
+
   viewProfile(id: number) {
     this.PatientServices.viewProfile(id);
-    console.log(id)
+    console.log('view profile',id)
     this.dialogVisible=true;
     // for local only
-   this.selectedProfile = this.localPatients.find(p => p.id === id) || null;
-   console.log('profile is :',this.selectedProfile)
+  //  this.selectedProfile = this.localPatients.find(p => p.id === id) || null;
 
   }
-   onSearch(data: any) {
-    data=this.fb.control(this.searchForm)
-    this.PatientServices.onSearch(this.value)
-    console.log(data)
-  }
+  //  onSearch(data: any) {
+  //   data=this.fb.control(this.searchForm)
+  //   this.PatientServices.onSearch(this.value)
+  //   console.log(data)
+  // }
   // local data for test
 localPatients:Patient[]=[
   {
     id: 1,
-    Name: 'ahmed kadoum',
+    name: 'ahmed kadoum',
     image: 'assets/images/patients/aa.webp',
     themeColor: '#4CAF50',
     connectedUserNumber: 2,
@@ -192,8 +178,7 @@ localPatients:Patient[]=[
     gender: 'Male',
     currentPatients: [
       {
-        PatientId: 1,
-        PatientName: 'mohamed mohamed',
+        MedId: 1,
         MedicationName:'paracetamol',
         PatientCategory: 'Cardiology',
         dosage: '10mg',
@@ -205,7 +190,8 @@ localPatients:Patient[]=[
         notes: 'Take after meals',
       },
     ],
-    currentConsultations: [{id:1,name:'Cardiology Checkup',
+    currentConsultations: [
+      {id:1,name:'Cardiology Checkup',
       StartDate:new Date('2025-06-15'),EndDate:new Date('2025-06-30')},
        {id:2,name:'Blood Pressure Monitoring',
          StartDate:new Date('2025-06-15'),EndDate:new Date('2025-06-30')},
@@ -213,7 +199,7 @@ localPatients:Patient[]=[
   },
   {
     id: 2,
-    Name: 'linda Ahmed',
+    name: 'linda Ahmed',
     image: 'assets/images/patients/bb.webp',
     themeColor: '#FF9800',
     connectedUserNumber: 1,
@@ -221,8 +207,7 @@ localPatients:Patient[]=[
     gender: 'Female',
     currentPatients: [
       {
-        PatientId: 2,
-        PatientName:'mahmoud kadoum',
+       MedId: 2,
         MedicationName: 'panadol',
         PatientCategory: 'Neurology',
         dosage: '5mg',

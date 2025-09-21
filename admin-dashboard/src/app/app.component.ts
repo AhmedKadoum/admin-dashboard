@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PrimeNG } from 'primeng/config';
@@ -13,12 +13,9 @@ import { PrimeNG } from 'primeng/config';
   styleUrl: './app.component.css'
 
 })
-export class AppComponent implements OnInit {
-    constructor(private primeng: PrimeNG) {}
-
-    ngOnInit() {
-        this.primeng.ripple.set(true);
-    }
+export class AppComponent {
   title = 'admin-dashboard';
+  primengConfig: PrimeNG = new PrimeNG()
+
 
 }

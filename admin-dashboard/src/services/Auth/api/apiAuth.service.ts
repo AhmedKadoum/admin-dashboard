@@ -9,26 +9,24 @@ import { AuthState } from '../../../app/store/slices/auth/auth.store';
 export class apiAuthService {
   private http: HttpClient = inject(HttpClient);
 
-  fetchUserData(username: string, password: string): Observable<AuthState> {
-    // Replace '/api/user' with the actual endpoint for fetching user data
-    return this.http.get<AuthState>('users').pipe(
-      map((response: AuthState) => {
-        return response;
-      })
+  fetchUserData(username: string, password: string): Observable<any> {
+    return this.http.get<any>('/api/users',{ params: { username, password } }).pipe(
+      map((response: any) => {
+        const user = response.data.users.find(
+          (u: any) =>
+            u.username === username && u.password === password
+        );
+      if (user) {
+        // localStorage.setItem('user', JSON.stringify(user));
+        return {
+          token: response.data.token,
+          user:response.data.user
+        };
+      } else {
+        throw new Error('Invalid username or password');
+      }
+      }
+    )
     );
   }
-  // test
-  // login(username: string, password: string): Observable<AuthState> {
-  //   return this.http.get<any[]>('http://localhost:3000/users').pipe(
-  //     map((users) => {
-  //       const user = users.find(
-  //         (u) => u.username === username && u.password === password
-  //       );
-  //       if (user) {
-  //         localStorage.setItem('user', JSON.stringify(user));
-  //       }
-  //       return user;
-  //     })
-  //   );
-  // }
 }

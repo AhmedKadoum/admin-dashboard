@@ -1,0 +1,39 @@
+
+[
+{
+  "id": 0,
+  "category_name": "all",
+  "assigned_products":"22",
+  "description": "if you didn’t assign a product to a category it will be assigned to this category be default."
+},
+{
+  "id": 1,
+  "category_name": "best_seller",
+  "assigned_products":"5",
+  "description": "Best seller is a fixed section in the shop, it won’t appear until assigning a product to it."
+},
+{
+  "id": 2,
+  "category_name": "webinar",
+  "assigned_products":"3",
+  "description": "Test 2"
+},
+{
+  "id": 3,
+  "category_name": "software",
+  "assigned_products":"4",
+  "description": "Test 3"
+},
+{
+  "id": 4,
+  "category_name": "e_books",
+  "assigned_products":"3",
+  "description": "Test 4"
+},
+{
+  "id": 5,
+  "category_name": "audio_book_download",
+  "assigned_products":"4",
+  "description": "Test 5"
+}
+]

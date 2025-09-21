@@ -5,7 +5,7 @@ import{createReducer, on,createAction,props,createFeatureSelector, createSelecto
 export const actions={
  login:createAction(
   '[Auth] Login',
-  props<{username:string;password:string}>()
+  props<{credential:{username:string;password:string}}>()
 ),
  loginSuccess:createAction(
   '[Auth] Login Success',

@@ -14,41 +14,32 @@ export class ApiPatientService {
   constructor() { }
   private http: HttpClient = inject(HttpClient);
 
-    loadPatientsData(): Observable<Patient[]> {
+    loadPatientsData(): Observable<any> {
       console.log('API service called to load patients');
-  return this.http.get<{ data: { items: Patient[] } }>('theme').pipe(
-    tap((response )=>console.log('raw response from api service is ', response.data.items)),
-    map((response) => {
-      return response.data.items;
+  return this.http.get<any>('/api/patients').pipe(
+    tap((response )=>console.log('raw response from api service is ', response.data)),
+    map((response:any) => {
+      return response.data;
     })
   );
 }
-    fetchTheme(): Observable<any> {
-      console.log('API service called to fetch theme');
-      return this.http
-        .get<any>(`theme`) // Change the URL to '/api/theme'
-        .pipe(
-          tap((response) => console.log('Fetched theme:', response)),
-          map((response: any) => response.theme));
-    }
-
-    updatePatientsData(): Observable<Patient> {
-      // Replace '/api/user' with the actual endpoint for fetching user data
-      return this.http.get<Patient>('Patients').pipe(
-        map((response: Patient) => {
-          console.log('response is ',response)
-          return response;
-        })
-      );
-    }
-    searchPatients(query:string): Observable<Patient[]> {
-       console.log('API called with query:', query);
-      return this.http.get<Patient[]>('Patients').pipe(
-        map((response: Patient[]) => {
-          console.log('response is ',response)
-          return response;
-        })
-      );
-    }
+    loadPatientsDataById(id:number): Observable<any> {
+      console.log('API service called to load patients',id);
+  return this.http.get<any>(`/api/patients/${id}`).pipe(
+    tap((response )=>console.log('raw response from api service is ', response.data)),
+    map((response:any) => {
+      return response.data;
+    })
+  );
+}
+    // searchPatients(query:string): Observable<Patient[]> {
+    //    console.log('API called with query:', query);
+    //   return this.http.get<Patient[]>('Patients').pipe(
+    //     map((response: Patient[]) => {
+    //       console.log('response is ',response)
+    //       return response;
+    //     })
+    //   );
+    // }
 
 }

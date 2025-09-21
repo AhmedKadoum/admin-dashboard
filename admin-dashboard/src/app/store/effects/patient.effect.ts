@@ -2,7 +2,7 @@ import { Patient } from '../slices/patients/patient.store';
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as PatientActions from '../slices/patients/patient.store';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 import { ApiPatientService } from '../../../services/patient/api/api-patient.service';
 
 @Injectable()
@@ -15,9 +15,9 @@ export class PatientEffects {
     this.actions$.pipe(
       ofType(PatientActions.actions.loadPatients),
       tap(() => console.log('🔄 Patients effect triggered')),
-      mergeMap(() =>
+      exhaustMap(() =>
         this.apiPatientService.loadPatientsData().pipe(
-          map((response: Patient[]) =>
+          map((response:any) =>
             PatientActions.actions.loadPatientsSuccess({ data: response })
         ),
           catchError((error) =>
@@ -31,33 +31,14 @@ export class PatientEffects {
       )
     )
   );
-  // test
-  loadTheme$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(PatientActions.actions.loadTheme),
-      tap(() => console.log(' effect triggered =>theme')),
-      mergeMap(() =>
-        this.apiPatientService.fetchTheme().pipe(
-          map((response:any) =>
-            PatientActions.actions.loadThemeSuccess({ data: response })
-        ),
-          catchError((error) => {
-            console.error('Theme API failed', error);
-            return of(PatientActions.actions.loadThemeFailure({ error: error.message }));
-          })
-        )
-      )
-    )
-  );
-  //
-  editPatients$ = createEffect(() =>
+  updatePatients$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PatientActions.actions.updatePatient),
       tap(() => console.log('🔄 update Patients effect triggered')),
-      mergeMap(() =>
-        this.apiPatientService.updatePatientsData().pipe(
-          map((response: Patient) =>
-            PatientActions.actions.updatePatientSuccess({Patient:response})
+      exhaustMap((patient) =>
+        this.apiPatientService.loadPatientsData().pipe(
+          map(() =>
+            PatientActions.actions.updatePatientSuccess(patient)
           ),
           catchError((error) =>
             of(
@@ -70,19 +51,79 @@ export class PatientEffects {
       )
     )
   );
-  searchPatients$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(PatientActions.actions.searchPatients),
-      mergeMap(({ query }) =>
-        this.apiPatientService.searchPatients(query).pipe(
-          map((patients) =>
-            PatientActions.actions.searchPatientsSuccess({ patients })
-          ),
-          catchError((error) =>
-            of(PatientActions.actions.searchPatientsFailure({ error: error.message }))
+    DeletePatients$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(PatientActions.actions.removePatients),
+        tap(() => console.log('🔄remove patients effect triggered')),
+        exhaustMap(({PatientId}) =>
+          this.apiPatientService.loadPatientsData().pipe(
+            map(() =>
+              PatientActions.actions.removePatientsSuccess({PatientsId:PatientId}),
+            ),
+            catchError((error) =>
+              of(
+                PatientActions.actions.loadPatientsFailure({
+                  error: error.message,
+                })
+              )
+            )
           )
         )
       )
-    )
-  );
+    );
+    CreatePatients$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(PatientActions.actions.createPatient),
+        tap(() => console.log('🔄create patients effect triggered')),
+        exhaustMap((Patient) =>
+          this.apiPatientService.loadPatientsData().pipe(
+            map(() =>
+              PatientActions.actions.createPatientSuccess( Patient ),
+            ),
+            catchError((error) =>
+              of(
+                PatientActions.actions.loadPatientsFailure({
+                  error: error.message,
+                })
+              )
+            )
+          )
+        )
+      )
+    );
+    loadProfiles$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(PatientActions.actions.loadProfiles),
+        tap(() => console.log('🔄load profiles effect triggered')),
+        exhaustMap(({PatientId}) =>
+          this.apiPatientService.loadPatientsDataById(PatientId).pipe(
+            map((response) =>
+              PatientActions.actions.loadProfilesSuccess({data:response} ),
+            ),
+            catchError((error) =>
+              of(
+                PatientActions.actions.loadProfilesFailure({
+                  error: error.message,
+                })
+              )
+            )
+          )
+        )
+      )
+    );
+  // searchPatients$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(PatientActions.actions.searchPatients),
+  //     mergeMap(({ query }) =>
+  //       this.apiPatientService.searchPatients(query).pipe(
+  //         map((patients) =>
+  //           PatientActions.actions.searchPatientsSuccess({ patients })
+  //         ),
+  //         catchError((error) =>
+  //           of(PatientActions.actions.searchPatientsFailure({ error: error.message }))
+  //         )
+  //       )
+  //     )
+  //   )
+  // );
 }

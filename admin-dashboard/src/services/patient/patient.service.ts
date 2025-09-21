@@ -9,6 +9,7 @@ import { inject, Injectable, Signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { actions } from '../../app/store/slices/patients/patient.store';
+import { SortEvent } from 'primeng/api';
 
 
 @Injectable({
@@ -26,6 +27,9 @@ export class PatientService {
     Patients$: Signal<Patient[] | null> = this.store.selectSignal(
       PatientsFeature.selectPatients
     );
+    FilteredPatients$: Signal<Patient[] | null> = this.store.selectSignal(
+      PatientsFeature.selectFilteredPatients
+    );
     PatientsState$: Signal<PatientsState | null> = this.store.selectSignal(
       PatientsFeature.selectPatientState
     );
@@ -36,32 +40,44 @@ export class PatientService {
     error$: Signal<string | null> = this.store.selectSignal(
       PatientsFeature.selectError
     );
+    SelectedPatientId$: Signal<number> = this.store.selectSignal(
+      PatientsFeature.selectSelectedPatientId);
+    SelectedPatient$: Signal<Patient> = this.store.selectSignal(
+      PatientsFeature.selectSelectedPatient);
+
 
     initializePatients(): void {
       this.store.dispatch(actions.loadPatients());
     }
-    initializeTheme(aa:string): void {
-      this.store.dispatch(actions.loadTheme());
-      console.log('theme initialized from service',aa)
-    }
+
     // crud
 
-    addPatient(name: string): void {
-      this.store.dispatch(actions.createPatient({ name }));
+    addPatient(Patient:Patient): void {
+      this.store.dispatch(actions.createPatient({ Patient }));
     }
 
     updatePatient(Patient:Patient) {
-      this.store.dispatch(actions.updatePatient({ Patient:Patient}));
+      this.store.dispatch(actions.updatePatient({ Patient}));
+      console.log('update patient from service id:',Patient.id)
     }
 
     deletePatient(PatientId: number) {
       this.store.dispatch(actions.removePatients({PatientId}));
+      console.log('delete patient from service id:',PatientId)
     }
     viewProfile(PatientId: number) {
       this.store.dispatch(actions.loadProfiles({PatientId}))
       console.log('load profile from service id:',PatientId)
     }
-    onSearch(query: string) {
-      this.store.dispatch(actions.searchPatients({query}))
+    searchCategory(query: string) {
+        this.store.dispatch(actions.searchPatients({query}));
+      }
+      onSort(event: SortEvent) {
+        event.data=[];
+      this.store.dispatch(actions.sortPatients({
+        field: event.field,
+        order: event.order
+      }));
     }
+
 }
