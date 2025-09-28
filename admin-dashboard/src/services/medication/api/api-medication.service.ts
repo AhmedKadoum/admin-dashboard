@@ -15,11 +15,10 @@ export class ApiMedicationService {
   private http: HttpClient = inject(HttpClient);
 
     loadMedicationsData(): Observable<Medication[]> {
-      // Replace '/api/user' with the actual endpoint for fetching user data
-      return this.http.get<Medication[]>('http://localhost:3000/Medications').pipe(
-        map((response: Medication[]) => {
+      return this.http.get<Medication[]>('/api/medications').pipe(
+        map((response: any) => {
           console.log('response is ',response)
-          return response;
+          return response.data;
         })
       );
     }

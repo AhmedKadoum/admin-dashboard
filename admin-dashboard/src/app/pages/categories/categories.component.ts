@@ -6,7 +6,6 @@ import { ButtonModule } from 'primeng/button';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { SelectButton } from "primeng/selectbutton";
 import { DialogModule } from "primeng/dialog";
 import { FormBuilder, FormGroup,FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
@@ -17,7 +16,7 @@ import { DataViewModule } from 'primeng/dataview';
 @Component({
   selector: 'app-categories',
   imports: [CommonModule, TableModule, ButtonModule,
-     BreadcrumbModule, SelectButton, DialogModule,ConfirmDialogModule,
+     BreadcrumbModule, DialogModule,ConfirmDialogModule,
      ReactiveFormsModule,FormsModule,ConfirmPopupModule,DataViewModule],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css',

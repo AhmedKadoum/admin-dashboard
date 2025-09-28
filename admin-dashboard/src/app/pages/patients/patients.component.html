@@ -25,11 +25,13 @@
            [paginator]="true"
            [rows]="8"
            [rowsPerPageOptions]="[5,10,20]"
-           [tableStyle]="{ 'min-width': '30rem' }">
+           [tableStyle]="{ 'min-width': '30rem' }"
+           [customSort]="true"
+            (sortFunction)="onSort($event)">
     <ng-template pTemplate="header">
       <tr>
-        <th>ID</th>
-        <th>Name</th>
+        <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="Name">Name <p-sortIcon field="Name"></p-sortIcon></th>
         <th>Image</th>
         <th>ThemeColor</th>
         <th>ConnectedUserNumber</th>
@@ -44,7 +46,8 @@
         <td>{{ Pat.id }}</td>
         <td>{{ Pat.Name}}</td>
         <td><img src="{{ Pat.image }}" alt=" patient" class="size-12"></td>
-        <td>{{Pat.themeColor}}</td>
+        <td><span class="pat-color"
+         [style.backgroundColor]="Pat.themeColor">{{Pat.themeColor}}</span></td>
         <td>{{Pat.connectedUserNumber}}</td>
         <td>{{Pat.dateOfBirth | date:'dd/mm/yy'}}</td>
         <td>{{Pat.gender}}</td>

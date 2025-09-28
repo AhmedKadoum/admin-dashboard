@@ -10,14 +10,14 @@ export class MedicationEffects {
   private apiMedicationService: ApiMedicationService = inject(ApiMedicationService);
   private actions$: Actions = inject(Actions);
 
-  // 🔹 Effect listens for Login action
+
   loadMedications$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MedicationActions.actions.loadMedications),
       tap(() => console.log('🔄 Medications effect triggered')),
       exhaustMap(() =>
         this.apiMedicationService.loadMedicationsData().pipe(
-          map((response: Medication[]) =>
+          map((response: any) =>
             MedicationActions.actions.loadMedicationsSuccess({ data: response })
           ),
           catchError((error) =>
@@ -31,4 +31,66 @@ export class MedicationEffects {
       )
     )
   );
+DeleteMedications$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MedicationActions.actions.removeMedications),
+      tap(() => console.log('🔄remove Medications effect triggered')),
+      exhaustMap(({MedicationsId}) =>
+        this.apiMedicationService.loadMedicationsData().pipe(
+          map(() =>
+            MedicationActions.actions.removeMedicationsSuccess({MedicationsId}),
+          ),
+          catchError((error) =>
+            of(
+              MedicationActions.actions.loadMedicationsFailure({
+                error: error.message,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+  CreateMedications$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MedicationActions.actions.createMedication),
+      tap(() => console.log('🔄create Medications effect triggered')),
+      exhaustMap(({name:MedicationName}) =>
+        this.apiMedicationService.loadMedicationsData().pipe(
+          map(() =>
+            MedicationActions.actions.createMedicationSuccess( {name:MedicationName} ),
+          ),
+          catchError((error) =>
+            of(
+              MedicationActions.actions.loadMedicationsFailure({
+                error: error.message,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+  UpdateMedications$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MedicationActions.actions.updateMedication),
+      tap(() => console.log('🔄update Medications effect triggered')),
+      exhaustMap((Medication) =>
+        this.apiMedicationService.loadMedicationsData().pipe(
+          map(() =>
+            MedicationActions.actions.updateMedicationSuccess({name:Medication.name,MedicationId:Medication.MedicationId}),
+          ),
+          catchError((error) =>
+            of(
+              MedicationActions.actions.loadMedicationsFailure({
+                error: error.message,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
 }
+
+

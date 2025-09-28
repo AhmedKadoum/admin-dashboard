@@ -49,11 +49,6 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/help-page/help-page.component').then(m => m.HelpPageComponent)
       },
       {
-        path:'test',
-        title: 'Test',
-        loadComponent: () => import('./pages/test/test.component').then(m => m.TestComponent)
-      },
-      {
         path:'users',
         title:'Users',
         loadComponent: () => import('./pages/users-list/users-list.component').then(m => m.UserListComponent)

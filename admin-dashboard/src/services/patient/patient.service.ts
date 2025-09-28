@@ -4,7 +4,7 @@ import {
   PatientsState,
   Patient,
 } from './../../app/store/slices/patients/patient.store';
-import { inject, Injectable, Signal } from '@angular/core';
+import { computed, inject, Injectable, Signal } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -30,6 +30,8 @@ export class PatientService {
     FilteredPatients$: Signal<Patient[] | null> = this.store.selectSignal(
       PatientsFeature.selectFilteredPatients
     );
+    Patients$_Total$: Signal<number | null> =computed(()=>
+    this.Patients$()?.length??0);
     PatientsState$: Signal<PatientsState | null> = this.store.selectSignal(
       PatientsFeature.selectPatientState
     );
@@ -42,7 +44,7 @@ export class PatientService {
     );
     SelectedPatientId$: Signal<number> = this.store.selectSignal(
       PatientsFeature.selectSelectedPatientId);
-    SelectedPatient$: Signal<Patient> = this.store.selectSignal(
+    SelectedPatient$: Signal<any> = this.store.selectSignal(
       PatientsFeature.selectSelectedPatient);
 
 
@@ -69,14 +71,16 @@ export class PatientService {
       this.store.dispatch(actions.loadProfiles({PatientId}))
       console.log('load profile from service id:',PatientId)
     }
-    searchCategory(query: string) {
-        this.store.dispatch(actions.searchPatients({query}));
+    searchPatient(query: string) {
+        this.store.dispatch(actions.SearchPatients({query}));
+        console.log('service :',query)
       }
       onSort(event: SortEvent) {
-        event.data=[];
+        //prevent dispatch for missing field
+         if (!event.field||!event.order) return;
       this.store.dispatch(actions.sortPatients({
         field: event.field,
-        order: event.order
+        order: event.order??1
       }));
     }
 

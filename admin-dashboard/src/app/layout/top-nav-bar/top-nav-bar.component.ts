@@ -6,12 +6,13 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { AvatarModule } from "primeng/avatar";
 
 @Component({
   selector: 'app-top-nav-bar',
   standalone: true,
-  imports: [Button,ToolbarModule, IconFieldModule, InputIconModule,
-    InputTextModule, SplitButtonModule], // Use Button component directly
+  imports: [Button, ToolbarModule, IconFieldModule, InputIconModule,
+    InputTextModule, SplitButtonModule, AvatarModule], // Use Button component directly
   templateUrl: './top-nav-bar.component.html',
   styleUrls: ['./top-nav-bar.component.css'],
 })

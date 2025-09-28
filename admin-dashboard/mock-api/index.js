@@ -13,6 +13,7 @@ import colorOptions from './color-options.json' with {type: 'json'};
 import orderFormOptions from './order-form.json' with {type: 'json'};
 import categories from './mockCategories.json' with {type: 'json'};
 import patients from './mockPatients.json' with {type: 'json'};
+import medication from './mockMedications.json' with {type: 'json'};
 import discounts from './mockDiscounts.json' with {type: 'json'};
 import domainTracking from './mockDomianTracking.json' with { type: "json" };
 import seoMetaTags from './seoMetaTags.json' with { type: "json" };
@@ -90,6 +91,14 @@ app.get('/api/categories', (req, res) => {
         status: 200,
         message: "Category fetched successfully",
         data: categories ,
+    });
+});
+app.get('/api/medications', (req, res) => {
+    console.log(req.query)
+    res.json({
+        status: 200,
+        message: "medications fetched successfully",
+        data: medication ,
     });
 });
 // test

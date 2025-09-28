@@ -1,15 +1,17 @@
 
  <p-toolbar>
-    <ng-template #start>
-        <p-button icon="pi pi-plus" class="mr-2" severity="secondary" />
+   <ng-template #start>
+       <p-iconfield iconPosition="left">
+           <p-avatar image="../../../assets/images/patients/dd.webp"
+            [style]="{ width: '42px', height: '42px' }" />
+       </p-iconfield>
+    <!-- <ng-template #center> -->
+        <!-- <p-button icon="pi pi-plus" class="mr-2" severity="secondary" />
         <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
-        <p-button icon="pi pi-upload" text severity="secondary" />
-    </ng-template>
-    <ng-template #center>
-        <p-iconfield iconPosition="left">
-            <p-inputicon class="pi pi-search" />
-            <input type="text" pInputText placeholder="Search" />
-        </p-iconfield>
+        <p-button icon="pi pi-upload" text severity="secondary" /> -->
+        <!-- <p [style]="{width:'100px',color:'#10b981',
+        }" >MedicoCare</p> -->
+    <!-- </ng-template> -->
     </ng-template>
     <ng-template #end>
         <p-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />

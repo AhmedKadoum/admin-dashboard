@@ -3,7 +3,7 @@ import {
   CategoriesState,
   Category,
 } from './../../app/store/slices/categories/category.store';
-import { inject, Injectable, Signal } from '@angular/core';
+import { computed, inject, Injectable, Signal } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -21,9 +21,10 @@ export class CategoryService {
     categoriesFeature.selectLoading
   );
   categories$: Signal<Category[] | null> = this.store.selectSignal(
-    // categoriesFeature.selectCategories
     categoriesFeature.selectFilteredCategories
   );
+  Categories_Total$: Signal<number | null> =computed(()=>
+    this.categories$()?.length??0);
   categoriesState$: Signal<CategoriesState | null> = this.store.selectSignal(
     categoriesFeature.selectCategoryState
   );
@@ -54,10 +55,10 @@ export class CategoryService {
     this.store.dispatch(actions.SearchCategory({query}));
   }
   onSort(event: SortEvent) {
-    event.data=[];
+    if(!event.field||!event.order)return;
   this.store.dispatch(actions.sortCategories({
     field: event.field,
-    order: event.order
+    order: event.order??1
   }));
 }
 }

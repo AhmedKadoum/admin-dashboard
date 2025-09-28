@@ -1,58 +1,81 @@
 
-<p-drawer #drawerRef [(visible)]="visible">
+<p-drawer #drawerRef [(visible)]="visible" >
     <ng-template pTemplate="headless" let-closeCallback>
-        <div class="flex flex-col h-full">
+        <div class="flex flex-col h-full "  >
             <div class="flex items-center justify-between px-6 pt-4 shrink-0">
                 <span class="inline-flex items-center gap-2">
-                    <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
-                        <path d="assets/column-chart-svgrepo-com.svg" />
+                    <svg width="31" height="33" viewBox="0 0 31 33" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
+                        <path d="" />
                     </svg>
-                    <span class="font-semibold text-2xl text-primary">Your Logo</span>
+                    <span class="font-semibold text-2xl text-primary">MEDICO CARE</span>
                 </span>
                 <span>
-                    <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-8 w-8"></p-button>
+                    <p-button type="button" (click)="onCloseClicked()"
+                     icon="pi pi-times" rounded="true" outlined="true" styleClass="h-8 w-8"></p-button>
                 </span>
             </div>
             <div class="overflow-y-auto">
                         <ul class="list-none p-0 m-0 overflow-hidden">
                             <li>
-                                <a pRipple routerLink="/dashboard" class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                <a pRipple routerLink="/dashboard" (click)="onCloseClicked()"
+                                class="flex items-center cursor-pointer p-4 rounded-border
+                                 text-surface-700 light:text-surface-100 hover:bg-surface-100
+                                 light:hover:bg-surface-700
+                                  duration-150 transition-colors p-ripple">
                                     <i class="pi pi-home mr-2"></i>
                                     <span class="font-medium">Dashboard</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple routerLink="/patients" class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                <a pRipple routerLink="/patients" (click)="onCloseClicked()" class="flex items-center
+                                cursor-pointer p-4 rounded-border text-surface-700 light:text-surface-100
+                                hover:bg-surface-100 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-bookmark mr-2"></i>
                                     <span class="font-medium">Patients</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple routerLink="/categories" class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                <a pRipple routerLink="/categories" (click)="onCloseClicked()"
+                                 class="flex items-center
+                                 cursor-pointer p-4 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100
+                                 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-users mr-2"></i>
                                     <span class="font-medium">Categories</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple routerLink="/medications" class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                <a pRipple routerLink="/medications" (click)="onCloseClicked()"
+                                 class="flex items-center cursor-pointer
+                                 p-4 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100
+                                 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-comments mr-2"></i>
                                     <span class="font-medium">Medications</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple routerLink="/settings" class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                <a pRipple routerLink="/settings" (click)="onCloseClicked()"
+                                 class="flex items-center cursor-pointer
+                                 p-4 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100
+                                 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-calendar mr-2"></i>
                                     <span class="font-medium">Settings</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple routerLink="support" class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                <a pRipple routerLink="support" (click)="onCloseClicked()"
+                                 class="flex items-center cursor-pointer
+                                p-4 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100
+                                light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-cog mr-2"></i>
                                     <span class="font-medium">Support</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple routerLink="/help-page" class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                <a pRipple routerLink="/help-page" (click)="onCloseClicked()"
+                                 class="flex items-center cursor-pointer
+                                 p-4 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100
+                                 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-cog mr-2"></i>
                                     <span class="font-medium">Help</span>
                                 </a>
@@ -61,9 +84,12 @@
             </div>
             <div class="mt-auto">
                 <hr class="mb-4 mx-4 border-t border-0 border-surface" />
-                <a pRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 light:text-surface-100 hover:bg-surface-100 light:hover:bg-surface-700 duration-150 transition-colors p-ripple">
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-                    <span class="font-bold">Amy Elsner</span>
+                <a pRipple class="m-4 flex items-center cursor-pointer
+                p-4 gap-2 rounded-border text-surface-700 light:text-surface-100
+                hover:bg-surface-100 light:hover:bg-surface-700 duration-150 transition-colors
+                p-ripple">
+                    <p-avatar image="../../../assets/images/patients/ff.webp" shape="circle" />
+                    <span class="font-bold">Ahmed Kadoum</span>
                 </a>
             </div>
         </div>

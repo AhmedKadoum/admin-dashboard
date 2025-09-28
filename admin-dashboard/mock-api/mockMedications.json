@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Paracetamol",
+    "image": "assets/images/med/1.jpg",
+    "barCode": "1234567890123"
+  },
+  {
+    "id": 2,
+    "name": "Amoxicillin",
+    "image": "assets/images/med/2.jpg",
+    "barCode": "2234567890123"
+  },
+  {
+    "id": 3,
+    "name": "Ibuprofen",
+    "image": "assets/images/med/3.jpg",
+    "barCode": "3234567890123"
+  },
+  {
+    "id": 4,
+    "name": "Cough Syrup",
+    "image": "assets/images/med/4.jpg",
+    "barCode": "4234567890123"
+  },
+  {
+    "id": 5,
+    "name": "Ibuprofen",
+    "image": "assets/images/med/3.jpg",
+    "barCode": "3234567890123"
+  },
+  {
+    "id": 6,
+    "name": "Cough Syrup",
+    "image": "assets/images/med/4.jpg",
+    "barCode": "4234567890123"
+  },
+  {
+    "id": 7,
+    "name": "Ibuprofen",
+    "image": "assets/images/med/3.jpg",
+    "barCode": "3234567890123"
+  },
+  {
+    "id": 8,
+    "name": "Cough Syrup",
+    "image": "assets/images/med/4.jpg",
+    "barCode": "4234567890123"
+  }
+]

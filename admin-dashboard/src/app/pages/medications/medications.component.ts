@@ -4,76 +4,105 @@ import { MedicationService } from '../../../services/medication/medication.servi
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup,FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { DataViewModule } from 'primeng/dataview';
+import { DialogModule } from 'primeng/dialog';
 
 
 @Component({
   selector: 'app-Medications',
-  imports: [CommonModule,TableModule,ButtonModule,BreadcrumbModule],
+  imports: [CommonModule,TableModule,ButtonModule,BreadcrumbModule
+    , DialogModule,ConfirmDialogModule,
+         ReactiveFormsModule,FormsModule,ConfirmPopupModule,DataViewModule
+  ],
   templateUrl: './Medications.component.html',
   styleUrl: './Medications.component.css',
   standalone:true,
 })
 export class MedicationsComponent implements OnInit {
-
-   private MedicationServices: MedicationService = inject(MedicationService);
-
+  private MedicationServices: MedicationService = inject(MedicationService);
+MedicationForm!: FormGroup;
+searchForm!: FormGroup;
+fb=inject(FormBuilder);
+ private confirmationService: ConfirmationService = inject(ConfirmationService);
+dialogueVisible:boolean=false;
   // signal
   loading: Signal<boolean> = this.MedicationServices.loading$;
-  Medications: Signal<Medication[] | null> = this.MedicationServices.Medications$;
+  readonly Medications: Signal<Medication[] | null> = this.MedicationServices.Medications$;
   error: Signal<string | null> = this.MedicationServices.error$;
   // breadCrumb
   home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
-  items: MenuItem[] = [{ label: 'Dashboard', routerLink: '/dashboard' }, { label: 'Medications' }];
+  items: MenuItem[] = [{ label: 'Dashboard', routerLink: '/dashboard' },
+     { label: 'Medications' }];
+
+
   //
   ngOnInit(): void {
-      this.MedicationServices.initializeMedications()
-      console.log('Medication from component')
+
+      this.MedicationServices.initializeMedications();
+      this.MedicationForm=this.fb.group({
+        id:[0],
+        name:[''],
+      })
+      this.searchForm=this.fb.group({
+        search:['']
+      })
+      this.searchForm.get('search')?.valueChanges.pipe(
+        debounceTime(300),
+        distinctUntilChanged()
+      ).subscribe((value:String)=>{
+        console.log('search value is ',value) ;
+        this.MedicationServices.searchMedication(value.toString())
+      }
+      )
   }
-  constructor() {
-    effect(() => {
-      console.log(this.Medications())
-    });
-  }
-  // CRUD actions
+  // add & edit dialogue
   addMedication() {
-    this.MedicationServices.addMedication('new Medication');
+    this.dialogueVisible=true;
+    this.MedicationForm.reset({id:0,name:''});
   }
 
-  editMedication(Medication: Medication) {
-    const updated = { ...Medication, name: Medication.name + ' (Updated)', id: 5 };
-    this.MedicationServices.updateMedication(updated.id, updated.name);
+   editMedication(Medication: Medication) {
+    console.log('Medication is ',Medication);
+    // const updated = { ...Medication, name: Medication.Name + ' (Updated)', id: 5 };
+  this.MedicationForm.patchValue(Medication);  // fill form
+  this.dialogueVisible= true;
+  }
+saveMedication() {
+  const Medication: Medication = this.MedicationForm.value;
+  console.log('save Medication',Medication)
+  if (Medication.id && Medication.id > 0) {
+    this.MedicationServices.updateMedication( Medication.id, Medication.name);//check xxxx
+  } else {
+    this.MedicationServices.addMedication( Medication.name);
+    console.log('add new Medication',Medication.name)
+  }
+  this.dialogueVisible = false;
+}
+  // confirm delete
+  confirm(id:number){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete this Medication?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept:()=>{
+        this.MedicationServices.deleteMedication(id);
+        console.log('deleted id from confirm',id);
+        this.confirmationService.close();
+      },
+      reject:()=>{
+        console.log('rejected')
+        this.confirmationService.close();
+      }
+    })
+  }
+  onSort(event: any) {
+    this.MedicationServices.onSort(event);
   }
 
-  deleteMedication(id: number) {
-    this.MedicationServices.deleteMedication(id);
-  }
-  // local data for test
-   localMedications:Medication[]=[
-  {
-    "id": "1",
-    "name": "Paracetamol",
-    "image": "assets/images/med/1.jpg",
-    "barCode": "1234567890123"
-  },
-  {
-    "id": "2",
-    "name": "Amoxicillin",
-    "image": "assets/images/med/2.jpg",
-    "barCode": "2234567890123"
-  },
-  {
-    "id": "3",
-    "name": "Ibuprofen",
-    "image": "assets/images/med/3.jpg",
-    "barCode": "3234567890123"
-  },
-  {
-    "id": "4",
-    "name": "Cough Syrup",
-    "image": "assets/images/med/4.jpg",
-    "barCode": "4234567890123"
-  }
-]
 }

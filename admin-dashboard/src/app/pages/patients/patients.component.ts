@@ -75,17 +75,16 @@ value:string='medication'//default
        dateOfBirth: [new Date()],
        gender: ['Male']
        });
-      // build search form///need check?xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      // build search form
       this.searchForm=this.fb.group({
         search:['']
       })
-       this.searchForm.get('search')?.valueChanges
-      .pipe(
-        debounceTime(400),  // wait user typing
+       this.searchForm.get('search')?.valueChanges.pipe(
+        debounceTime(300),  // wait user typing
         distinctUntilChanged()
-      )
-      .subscribe((value: string) => {
-        this.PatientServices.searchCategory(value.toString());
+      ).subscribe((value: string) => {
+        console.log('search value is ',value) ;
+        this.PatientServices.searchPatient(value.toString());
       });
   }
   //
@@ -116,7 +115,7 @@ console.log('save patient',patient)
     this.PatientServices.updatePatient(patient);
   } else {
     this.PatientServices.addPatient( patient);
-    console.log('add new patient',patient.name)
+    console.log('add new patient',patient.Name)
   }
 
   this.EditDialogVisible = false;
@@ -157,70 +156,14 @@ console.log('save patient',patient)
     this.PatientServices.viewProfile(id);
     console.log('view profile',id)
     this.dialogVisible=true;
-    // for local only
-  //  this.selectedProfile = this.localPatients.find(p => p.id === id) || null;
-
-  }
+    }
   //  onSearch(data: any) {
   //   data=this.fb.control(this.searchForm)
   //   this.PatientServices.onSearch(this.value)
   //   console.log(data)
   // }
-  // local data for test
-localPatients:Patient[]=[
-  {
-    id: 1,
-    name: 'ahmed kadoum',
-    image: 'assets/images/patients/aa.webp',
-    themeColor: '#4CAF50',
-    connectedUserNumber: 2,
-    dateOfBirth: new Date('1990-05-15'),
-    gender: 'Male',
-    currentPatients: [
-      {
-        MedId: 1,
-        MedicationName:'paracetamol',
-        PatientCategory: 'Cardiology',
-        dosage: '10mg',
-        quantity: 30,
-        startDate: new Date('2025-08-01'),
-        endDate: new Date('2025-08-30'),
-        frequency: 'Once daily',
-        status: 'token',
-        notes: 'Take after meals',
-      },
-    ],
-    currentConsultations: [
-      {id:1,name:'Cardiology Checkup',
-      StartDate:new Date('2025-06-15'),EndDate:new Date('2025-06-30')},
-       {id:2,name:'Blood Pressure Monitoring',
-         StartDate:new Date('2025-06-15'),EndDate:new Date('2025-06-30')},
-       ],
-  },
-  {
-    id: 2,
-    name: 'linda Ahmed',
-    image: 'assets/images/patients/bb.webp',
-    themeColor: '#FF9800',
-    connectedUserNumber: 1,
-    dateOfBirth: new Date('1985-11-23'),
-    gender: 'Female',
-    currentPatients: [
-      {
-       MedId: 2,
-        MedicationName: 'panadol',
-        PatientCategory: 'Neurology',
-        dosage: '5mg',
-        quantity: 60,
-        startDate: new Date('2025-08-10'),
-        endDate: new Date('2025-09-10'),
-        frequency: 'Twice daily',
-        status: 'missed',
-      },
-    ],
-    currentConsultations: [{id:1,name:'Neurology Consultation',
-       StartDate:new Date('2025-06-15'),EndDate:new Date('2025-06-30')},
-    ],
-  },
-]
+   onSort(event: any) {
+    this.PatientServices.onSort(event);
+  }
+
 }

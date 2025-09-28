@@ -9,7 +9,7 @@ import {
 // model
 export interface Patient {
   id: number;
-  name: string;
+  Name: string;
   image?: string;
   themeColor: string;
   connectedUserNumber?: number;
@@ -92,21 +92,8 @@ export const actions = {
   loadProfilesFailure: createAction(
     '[Profiles] Load Profiles Failure',
     props<{ error: string }>()
-  ),
-  searchPatients : createAction(
-  '[Patient] Search',
-  props<{ query: string }>()
-)
+  )
   ,
-//   searchPatientsSuccess : createAction(
-//   '[Patient] Search',
-//   props<{ patients: Patient[] }>()
-// )
-//   ,
-//   searchPatientsFailure : createAction(
-//   '[Patient] Search',
-//   props<{ error: string }>()
-// ),
  selectPatient: createAction(
     '[Patients] Select Patient',
     props<{ patient: Patient | null }>()
@@ -132,7 +119,7 @@ export interface PatientsState {
   loading: boolean;
   error: string | null;
   selectedPatientId: number;
-  selectedPatient: Patient;
+  selectedPatient: Patient|null;
 
 }
 
@@ -145,19 +132,12 @@ export const initialState: PatientsState = {
   loading: false,
   error: null,
   selectedPatientId: 0,
-  selectedPatient: {} as Patient,
+  selectedPatient:null,
 };
 export interface ProfileResponse {
   currentPatients: PatientMedication[];
   currentConsultations: object[];
 }
-// export interface ProfilesState {
-//   currentPatients: PatientMedication[];
-//   currentConsultations: object[];
-//   loading: boolean;
-//   error?: string | null;
-// }
-
 export const reducer = createReducer(
   initialState,
   on(
@@ -194,14 +174,11 @@ export const reducer = createReducer(
   on(actions.loadProfilesSuccess, (state, { data }) => ({
     ...state,
     selectedPatient:data,
-    // currentPatients:(state.filteredPatients.find(c=>c.id===PatientId))?.currentPatients,
-    // currentConsultations:(state.filteredPatients.find(c=>c.id===PatientId))?.currentConsultations,
     loading: false,
   })),
 
     on(actions.createPatientSuccess, (state, { Patient }) => {
       const maxId = state.filteredPatients.length? Math.max(...state.filteredPatients.map(c => c.id)): 0;
-      // const newPatient = { id: maxId + 1, name: name.concat(`${maxId+1}`)};
       const newPatient = { ...Patient,id: maxId + 1}
       return({
         ...state,
@@ -234,19 +211,39 @@ export const reducer = createReducer(
   };
 }),
   on( actions.SearchPatients,(state, {query}) => {
+    console.log('reducer',query)
       const filtered = !query || query.trim() === ''
      ? [...state.Patients]
      : [...state.Patients.filter(c =>
-         c.name.toLowerCase().includes(query.toLowerCase())
+         c.Name.toLowerCase().includes(query.toLowerCase())
        )];
      return{
        ...state,
         filteredPatients:filtered,
        loading: false,
    }}),
+      on(actions.sortPatients, (state, { field, order }) => {
+         const sorted = [...state.filteredPatients].sort((a, b) => {
+         const valA = (a as any)[field];
+         const valB = (b as any)[field];
+
+         if (valA < valB) return -1 * order;
+         if (valA > valB) return 1 * order;
+         return 0;
+       });
+       // to prevent infinite loop return new array if false only
+     const isSame =
+       JSON.stringify(sorted) === JSON.stringify(state.filteredPatients);
+
+     if (isSame) return state;
+       return {
+         ...state,
+         filteredPatients: sorted
+       };
+     }),
   on(actions.selectPatient, (state, { patient }) => ({
     ...state,
-    selectedPatient: patient || ({} as Patient),
+    selectedPatient: patient || null,
     selectedPatientId: patient ? patient.id : 0
   })
 ));

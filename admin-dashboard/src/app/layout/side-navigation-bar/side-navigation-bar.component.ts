@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-
-
-//
 import { Button } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
@@ -14,7 +11,8 @@ import { CommonModule } from '@angular/common';
     Button, AvatarModule, AvatarGroupModule, DrawerModule,
     RouterModule, CommonModule],
   templateUrl: './side-navigation-bar.component.html',
-  styleUrl: './side-navigation-bar.component.css'
+  styleUrl: './side-navigation-bar.component.css',
+
 })
 export class SideNavigationBarComponent {
   visible: boolean = false;
@@ -28,23 +26,8 @@ export class SideNavigationBarComponent {
     { label: 'Support', icon: 'pi pi-fw pi-info-circle', routerLink: '/support' },
     { label: 'Help Page', icon: 'pi pi-fw pi-question-circle', routerLink: '/help-page' }
   ];
-  // test start
-//   menuItems = [
-//     { label: 'Dashboard', link: '/dashboard', icon: 'pi-home' },
-//     { label: 'Patients', link: '/patients', icon: 'pi-bookmark' },
-//     { label: 'Categories', link: '/categories', icon: 'pi-users' },
-//     { label: 'Medications', link: '/medications', icon: 'pi-comments' },
-//     { label: 'Settings', link: '/settings', icon: 'pi-calendar' },
-//     { label: 'Support', link: '/support', icon: 'pi-cog' },
-//     { label: 'Help', link: '/help-page', icon: 'pi-question' }
-// ];
-  // test end
-  // closeCallback: () => void = () => {
-  //   this.visible = false;
-  // }
-  closeCallback(event: MouseEvent) {
-  console.log("Button clicked!", event);
-  console.log("Clicked element:", event.target);
+onCloseClicked() {
+  console.log('Closing sidebar...');
   this.visible = false;
 }
 

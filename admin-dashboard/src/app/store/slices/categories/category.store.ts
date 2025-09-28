@@ -152,6 +152,8 @@ export const reducer = createReducer(
     if (valA > valB) return 1 * order;
     return 0;
   });
+  const isSame=JSON.stringify(sorted)===JSON.stringify(state.filteredCategories);
+  if(isSame)return state;
 
   return {
     ...state,
