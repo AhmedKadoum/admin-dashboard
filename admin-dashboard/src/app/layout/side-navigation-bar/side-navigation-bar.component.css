@@ -1,0 +1,7 @@
+.my-tab{
+  margin-bottom: 24px;
+
+}
+.my-tab:first-child{
+  margin-top: 24px;
+}

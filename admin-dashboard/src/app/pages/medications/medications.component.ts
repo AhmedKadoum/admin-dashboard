@@ -12,14 +12,14 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
+import { SearchInputComponent } from "../../shared/search-input/search-input.component";
 
 
 @Component({
   selector: 'app-Medications',
-  imports: [CommonModule,TableModule,ButtonModule,BreadcrumbModule
-    , DialogModule,ConfirmDialogModule,
-         ReactiveFormsModule,FormsModule,ConfirmPopupModule,DataViewModule
-  ],
+  imports: [CommonModule, TableModule, ButtonModule, BreadcrumbModule,
+    DialogModule, ConfirmDialogModule,
+    ReactiveFormsModule, FormsModule, ConfirmPopupModule, DataViewModule, SearchInputComponent],
   templateUrl: './Medications.component.html',
   styleUrl: './Medications.component.css',
   standalone:true,
@@ -49,17 +49,6 @@ dialogueVisible:boolean=false;
         id:[0],
         name:[''],
       })
-      this.searchForm=this.fb.group({
-        search:['']
-      })
-      this.searchForm.get('search')?.valueChanges.pipe(
-        debounceTime(300),
-        distinctUntilChanged()
-      ).subscribe((value:String)=>{
-        console.log('search value is ',value) ;
-        this.MedicationServices.searchMedication(value.toString())
-      }
-      )
   }
   // add & edit dialogue
   addMedication() {

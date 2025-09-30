@@ -60,6 +60,7 @@ readonly Patients_Total: Signal<number | null> = this.PatientServices.Patients$_
 
     this.options = {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           labels: {
@@ -99,6 +100,7 @@ readonly Patients_Total: Signal<number | null> = this.PatientServices.Patients$_
 
     this.options1 = {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           position: 'bottom',

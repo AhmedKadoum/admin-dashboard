@@ -1,25 +1,28 @@
-<div class="flex row justify-center gap-8">
+<div class="flex row justify-center gap-8
+sm:text-sm">
   <div [style.background]="data1.datasets[0].backgroundColor[0]"
-  class="my-tab">
+  class="my-tab text-xs ">
     total medication is : {{Medications_Total()}}
   </div>
   <div [style.background]="data1.datasets[0].backgroundColor[2]"
-  class="my-tab">
+  class="my-tab text-xs  ">
     total Categories is : {{Categories_Total()}}
   </div>
   <div [style.background]="data1.datasets[0].backgroundColor[1]"
-  class="my-tab">
+  class="my-tab text-xs ">
     total Patients is : {{Patients_Total()}}
   </div>
 
 </div>
-<div class="p-12 flex flex-row justify-between">
-  <div class="w-[40%]">
+<div class="p-12 flex flex-col gap-6 justify-between
+ sm:flex-row md:flex-row items-center">
+  <div class="w-[45%]">
     <p-chart type="pie" [data]="data1" [options]="options1" class="w-full h-[30rem]" />
   </div>
-  <div class="w-[40%]">
+  <div class="w-[45%]">
     <p-chart type="line" [data]="data" [options]="options" class="w-full h-[30rem]" />
   </div>
 </div>
+
 
 

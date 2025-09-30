@@ -18,14 +18,15 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { SearchInputComponent } from "../../shared/search-input/search-input.component";
 
 
 @Component({
   selector: 'app-Patients',
-  imports: [CommonModule,FormsModule,SelectButtonModule,ReactiveFormsModule,
-    TableModule,DialogModule, ButtonModule, BreadcrumbModule,
-    ConfirmDialogModule,ToastModule,ConfirmPopupModule
-     ,IconFieldModule,InputIconModule],
+  imports: [CommonModule, FormsModule, SelectButtonModule, ReactiveFormsModule,
+    TableModule, DialogModule, ButtonModule, BreadcrumbModule,
+    ConfirmDialogModule, ToastModule, ConfirmPopupModule,
+    IconFieldModule, InputIconModule, SearchInputComponent],
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.css',
   standalone:true,
@@ -79,13 +80,6 @@ value:string='medication'//default
       this.searchForm=this.fb.group({
         search:['']
       })
-       this.searchForm.get('search')?.valueChanges.pipe(
-        debounceTime(300),  // wait user typing
-        distinctUntilChanged()
-      ).subscribe((value: string) => {
-        console.log('search value is ',value) ;
-        this.PatientServices.searchPatient(value.toString());
-      });
   }
   //
   constructor() {

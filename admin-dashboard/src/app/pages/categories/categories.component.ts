@@ -12,12 +12,13 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { DataViewModule } from 'primeng/dataview';
+import { SearchInputComponent } from "../../shared/search-input/search-input.component";
 
 @Component({
   selector: 'app-categories',
   imports: [CommonModule, TableModule, ButtonModule,
-     BreadcrumbModule, DialogModule,ConfirmDialogModule,
-     ReactiveFormsModule,FormsModule,ConfirmPopupModule,DataViewModule],
+    BreadcrumbModule, DialogModule, ConfirmDialogModule,
+    ReactiveFormsModule, FormsModule, ConfirmPopupModule, DataViewModule, SearchInputComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css',
   standalone: true,
