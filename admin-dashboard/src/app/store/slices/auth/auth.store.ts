@@ -1,6 +1,4 @@
 import{createReducer, on,createAction,props,createFeatureSelector, createSelector, createFeature}from'@ngrx/store';
-
-
 // Define actions for authentication
 export const actions={
  login:createAction(
@@ -26,13 +24,11 @@ export interface User {
   password: string;//check if this is needed
   role: string;
   name: string;
-  profilePictureUrl?: string; // Optional field for user's profile picture URL
-
+  profilePictureUrl?: string; // Optional
 }
-
 export interface AuthState {
-  token: string|null;
   user: User|null;
+  token: string|null;
   error: string|null;
   loading: boolean;
 }
@@ -40,8 +36,8 @@ export interface AuthState {
 
 // Define the initial state for authentication
 export const initialAuthState: AuthState = {
-  token:null,
   user:null,
+  token:null,
   loading: false,
   error: null,
 }
@@ -74,10 +70,6 @@ export const authReducer=createReducer(
       loading: false,
     }))
   )
-
-
-
-
   // selectors
 export const authFeatures = createFeature({
   name: featureKey,

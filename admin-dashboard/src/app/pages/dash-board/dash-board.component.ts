@@ -28,65 +28,7 @@ readonly Patients: Signal<Patient[] | null> = this.PatientServices.Patients$;
 readonly Patients_Total: Signal<number | null> = this.PatientServices.Patients$_Total$;
 
   constructor() {
-    this.data = {
-      labels: [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-      ],
-      datasets: [
-        {
-          label: 'Medications per Month',
-          data: [50, 65, 70, 80, 95, 100, 90, 85, 110, 120, 130, 140],
-          fill: false,
-          borderColor: '#42A5F5',
-          tension: 0.4
-        },
-        {
-          label: 'Patients per Month',
-          data: [30, 40, 45, 55, 60, 65, 70, 75, 80, 90, 100, 105],
-          fill: false,
-          borderColor: '#66BB6A',
-          tension: 0.4
-        },
-        {
-          label: 'Consultations per Month',
-          data: [20, 25, 35, 40, 50, 60, 55, 70, 75, 80, 85, 90],
-          fill: false,
-          borderColor: '#FFA726',
-          tension: 0.4
-        }
-      ]
-    };
 
-    this.options = {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          labels: {
-            color: '#495057'
-          }
-        }
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: '#495057'
-          },
-          grid: {
-            color: '#ebedef'
-          }
-        },
-        y: {
-          ticks: {
-            color: '#495057'
-          },
-          grid: {
-            color: '#ebedef'
-          }
-        }
-      }
-    };
     this.data1 = {
       labels: ['Total Medications', 'Total Patients', 'Total categories'],
       datasets: [
