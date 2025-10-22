@@ -17,7 +17,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.actions.login),
       tap(() => console.log('🔄 Authentication effect triggered')),
-      tap(() => this.router.navigate(['/dashboard'])),
+      // tap(() => this.router.navigate(['/dashboard'])),
 
       exhaustMap(({credential}) =>
         this.apiAuthService.fetchUserData(credential.username,credential.password).pipe(
@@ -40,7 +40,7 @@ loginSuccess$ = createEffect(
     this.actions$.pipe(
       ofType(AuthActions.actions.loginSuccess),
       tap(({ user }) => {
-        if (user.role === 'Admin') {
+        if (user.role === 'Admin'|| user.role === 'Readonly') {
           this.router.navigate(['/dashboard']);
         } else {
          console.log('Access denied - Admins only');

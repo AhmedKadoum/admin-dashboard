@@ -10,14 +10,12 @@ export class apiAuthService {
   private http: HttpClient = inject(HttpClient);
 
   fetchUserData(username: string, password: string): Observable<any> {
-    return this.http.get<any>('/api/users',{ params: { username, password } }).pipe(
+    return this.http.post<any>('/api/users', { username, password } ).pipe(
       map((response: any) => {
-        const user = response.data.users.find(
-          (u: any) =>
-            u.username === username && u.password === password
-        );
+        const user = response.data.user;
+        console.log('API Response qq:', response.data.user);
       if (user) {
-        // localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(user));
         return {
           token: response.data.token,
           user:response.data.user

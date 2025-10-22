@@ -28,9 +28,9 @@ app.use(cors());
 app.use(express.json());
 
 // API Routes
-app.get('/api/users', (req, res) => {
+app.post('/api/users', (req, res) => {
     console.log(req.query)
-    const { username, password } = req.query;
+    const { username, password } = req.body;
      console.log('Login attempt:', username, password);
 
 

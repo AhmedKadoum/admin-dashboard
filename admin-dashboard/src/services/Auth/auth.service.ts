@@ -24,6 +24,7 @@ export class AuthService {
 
   login(credential: { username: string; password: string }){
     this.store.dispatch(actions.auth.login({credential}))
+    console.log('AuthService login dispatched', credential);
   }
 
   // }
